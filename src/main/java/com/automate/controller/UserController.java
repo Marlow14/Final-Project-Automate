@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.util.UriComponentsBuilder;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.automate.service.IUserService;
+import com.automate.service.UserServiceInterface;
 import com.automate.model.User;
 
 @Controller
 public class UserController {
 	
 	@Autowired
-	private IUserService userService;
+	private UserServiceInterface userService;
 
 	@RequestMapping(value="/user/{id}", method = RequestMethod.GET )
 	public ResponseEntity<User> getUserById(@PathVariable("id") Integer id) {

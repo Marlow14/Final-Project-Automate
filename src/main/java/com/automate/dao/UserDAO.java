@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.automate.model.User;
 
 @Repository
-public class UserDAO implements IUserDAO {
+public class UserDAO implements UserDAOInterface {
 	
 	@Autowired
 	private HibernateTemplate hibernateTemplate;
@@ -32,7 +32,7 @@ public class UserDAO implements IUserDAO {
 		hibernateTemplate.save(user);
 		return true;
 	}
-	
+
 	@Override
 	public void updateUser(User user) {
 		User record = getUserById(user.getUserId());
@@ -52,9 +52,26 @@ public class UserDAO implements IUserDAO {
 
 	@Override
 	public void deleteUser(int userId) {
-
 		hibernateTemplate.delete(getUserById(userId));
-
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<User> getMatches() {
+		int distance = 10000;
+		int userLat = 0;
+		int userLng = 0;
+		String hql = "SELECT id, ( 3959 * acos( cos( radians(" + userLat
+				+ ") ) * cos( radians( lat ) ) * cos( radians( lng ) - radians(" + userLng + ") ) + sin( radians("
+				+ userLat + ") ) * sin( radians( lat ) ) ) ) AS distance FROM users HAVING distance < " + distance
+				+ " ORDER BY distance LIMIT 0 , 20;";
+		
+		return (List<User>) hibernateTemplate.find(hql);
+	}
+
+	@Override
+	public boolean verifyPassword() {
+		//How do I even do this?
+		return false;
+	}
 }

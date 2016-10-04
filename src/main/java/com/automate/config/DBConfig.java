@@ -41,5 +41,6 @@ public class DBConfig {
 	public HibernateTransactionManager hibTransMan(){
 		return new HibernateTransactionManager(sessionFactory());
 	}
-	
+
 }
+

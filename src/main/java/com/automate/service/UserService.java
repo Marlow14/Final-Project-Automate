@@ -6,16 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.automate.dao.IUserDAO;
+import com.automate.dao.UserDAOInterface;
 import com.automate.model.User;
 
 
 @Service
 @Transactional
-public class UserService implements IUserService {
+public class UserService implements UserServiceInterface {
 	
 	@Autowired
-	private IUserDAO userDAO;
+	private UserDAOInterface userDAO;
 	
 	@Override
 	public User getUserById(int userId) {
@@ -45,5 +45,5 @@ public class UserService implements IUserService {
 		userDAO.deleteUser(userId);
 
 	}
-
+	
 }

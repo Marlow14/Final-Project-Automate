@@ -27,9 +27,6 @@ public class User implements Serializable {
 
 	@Column(name = "cell_phone")
 	private String cellPhone;
-	
-	@Column(name = "email")
-	private String email;
 
 	@Column(name = "home_address")
 	private String homeAddress;
@@ -42,6 +39,9 @@ public class User implements Serializable {
 
 	@Column(name = "password")
 	private String password;
+	
+	@Column(name = "email")
+	private String email;
 
 	public int getUserId() {
 		return userId;
@@ -75,20 +75,20 @@ public class User implements Serializable {
 		this.gender = gender;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+	
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public String getCellPhone() {
 		return cellPhone;
 	}
 
 	public void setCellPhone(String cellPhone) {
 		this.cellPhone = cellPhone;
-	}
-	
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
 	}
 
 	public String getHomeAddress() {
