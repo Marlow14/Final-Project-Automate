@@ -1,4 +1,4 @@
-package com.automate.DAO;
+package com.automate.dao;
 
 import java.util.List;
 
