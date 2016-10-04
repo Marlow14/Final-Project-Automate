@@ -11,8 +11,6 @@ import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import com.automate.model.User;
-
 @Configuration
 @EnableTransactionManagement
 public class DBConfig {
