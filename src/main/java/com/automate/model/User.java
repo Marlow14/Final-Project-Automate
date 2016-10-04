@@ -72,6 +72,7 @@ public class User implements Serializable {
 		this.gender = gender;
 	}
 
+<<<<<<< HEAD
 	public String getEmail() {
 		return email;
 	}
@@ -80,6 +81,8 @@ public class User implements Serializable {
 		this.email = email;
 	}
 
+=======
+>>>>>>> parent of ee1b4d3... updated DAO and User with email field
 	public String getCellPhone() {
 		return cellPhone;
 	}
