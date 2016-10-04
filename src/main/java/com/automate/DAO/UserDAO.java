@@ -31,6 +31,7 @@ public class UserDAO implements UserDAOInterface {
 		record.setFirstName(user.getFirstName());
 		record.setLastName(user.getLastName());
 		record.setGender(user.getGender());
+		record.setEmail(user.getEmail());
 		record.setCellPhone(user.getCellPhone());
 		record.setHomeAddress(user.getHomeAddress());
 		record.setWorkAddress(user.getWorkAddress());
