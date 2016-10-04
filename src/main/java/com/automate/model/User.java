@@ -39,6 +39,10 @@ public class User implements Serializable {
 
 	@Column(name = "password")
 	private String password;
+	
+	@Column(name = "email")
+	private String email;
+
 
 	public int getUserId() {
 		return userId;
@@ -72,7 +76,6 @@ public class User implements Serializable {
 		this.gender = gender;
 	}
 
-<<<<<<< HEAD
 	public String getEmail() {
 		return email;
 	}
@@ -81,8 +84,6 @@ public class User implements Serializable {
 		this.email = email;
 	}
 
-=======
->>>>>>> parent of ee1b4d3... updated DAO and User with email field
 	public String getCellPhone() {
 		return cellPhone;
 	}
