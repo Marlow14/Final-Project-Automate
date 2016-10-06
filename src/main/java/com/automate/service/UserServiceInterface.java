@@ -8,12 +8,11 @@ public interface UserServiceInterface {
 	
 	List<User> getAllUsers();
 	User getUserById(int userId);
-	User getUserTestById(int userId);
 	boolean addUser(User user);
 	void updateUser(User user);
 	void deleteUser(int userId);
-	public List<User> getMatches(String homeLat, String homeLng);
-//	public List<User> getMatches();
+	public List<User> getHomeMatches(String userHomeLat, String userHomeLng);
+	public List<User> getWorkMatches(String userWorkLat, String userWorkLng);
 	public boolean verifyPassword();
 
 }

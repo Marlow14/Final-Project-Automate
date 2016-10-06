@@ -59,17 +59,19 @@ public class UserDAO implements UserDAOInterface {
 		hibernateTemplate.delete(getUserById(userId));
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
-	public User getUserTestById(int userId) {
+	public List<User> getHomeMatches(String userHomeLat, String userHomeLng) {
 		
-		return hibernateTemplate.get(User.class, userId);
+		String hql = "SELECT userId, ( 3959 * acos( cos( radians(" + userHomeLat + ") ) * cos( radians( homeLat ) ) * cos( radians( homeLng ) - radians(" + userHomeLng + ") ) + sin( radians(" + userHomeLat + ") ) * sin( radians( homeLat ) ) ) ) AS distance FROM User ORDER BY distance";
+		return (List<User>) hibernateTemplate.find(hql);
 	}
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<User> getMatches(String homeLat, String homeLng) {
+	public List<User> getWorkMatches(String userWorkLat, String userWorkLng) {
 		
-		String hql = "SELECT userId, ( 3959 * acos( cos( radians(" + homeLat + ") ) * cos( radians( homeLat ) ) * cos( radians( homeLng ) - radians(" + homeLng + ") ) + sin( radians(" + homeLat + ") ) * sin( radians( homeLat ) ) ) ) AS distance FROM User ORDER BY distance";
+		String hql = "SELECT userId, ( 3959 * acos( cos( radians(" + userWorkLat + ") ) * cos( radians( workLat ) ) * cos( radians( workLng ) - radians(" + userWorkLng + ") ) + sin( radians(" + userWorkLat + ") ) * sin( radians( workLat ) ) ) ) AS distance FROM User ORDER BY distance";
 		return (List<User>) hibernateTemplate.find(hql);
 	}
 	
@@ -78,22 +80,5 @@ public class UserDAO implements UserDAOInterface {
 		//How do I even do this?
 		return false;
 	}
-	
-//	Commetted out the code below that query the user locations and arrange them in order of distance from a specific location - 10/5/16
-//	@SuppressWarnings("unchecked")
-//	@Override
-//	public List<User> getMatches() {
-//		
-//		
-////		String hql = "SELECT id, ( 3959 * acos( cos( radians(39) ) * cos( radians( homeLat ) ) * cos( radians( homeLng ) - radians(-77) ) + sin( radians(39) ) * sin( radians( homeLat ) ) ) ) AS distance FROM User HAVING distance < 16 ORDER BY distance LIMIT 0 , 20";
-//		
-//		String hql = "SELECT userId, ( 3959 * acos( cos( radians(39) ) * cos( radians( homeLat ) ) * cos( radians( homeLng ) - radians(-77) ) + sin( radians(39) ) * sin( radians( homeLat ) ) ) ) AS distance FROM User ORDER BY distance";
-//		
-////		String hql = "SELECT userId, ( 3959 * acos( cos( radians(39) ) * cos( radians( homeLat ) ) * cos( radians( homeLng ) - radians(-77) ) + sin( radians(39) ) * sin( radians( homeLat ) ) ) ) AS distance FROM User HAVING distance < 16 ORDER BY distance";
-//		
-//		
-//		
-//		return (List<User>) hibernateTemplate.find(hql);
-//	}
 	
 }

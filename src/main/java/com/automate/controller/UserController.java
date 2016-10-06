@@ -56,24 +56,16 @@ public class UserController {
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}
 
-	@RequestMapping(value="/test/{homeLat:.+}/{homeLng:.+}", method = RequestMethod.GET )
-	public ResponseEntity<List<User>> getMatches(@PathVariable("homeLat") String homeLat, @PathVariable("homeLng") String homeLng) {
-		List<User> tests = userService.getMatches(homeLat, homeLng);
-		return new ResponseEntity<List<User>>(tests, HttpStatus.OK);
+	@RequestMapping(value="/userHomeMatch/{userHomeLat:.+}/{userHomeLng:.+}", method = RequestMethod.GET )
+	public ResponseEntity<List<User>> getMatches(@PathVariable("userHomeLat") String userHomeLat, @PathVariable("userHomeLng") String userHomeLng) {
+		List<User> userHomeMatches = userService.getHomeMatches(userHomeLat, userHomeLng);
+		return new ResponseEntity<List<User>>(userHomeMatches, HttpStatus.OK);
 	}
 	
-//	Commetted out the code below that query the database and filter the lat and lng of their distance from a specific location
-//	@RequestMapping(value="/test/{id}", method = RequestMethod.GET )
-//	public ResponseEntity<User> getUserTestById(@PathVariable("id") Integer id) {
-//		User test = userService.getUserById(id);
-//		return new ResponseEntity<User>(test, HttpStatus.OK);
-//	}
-//	
-//	@RequestMapping(value= "/test", method = RequestMethod.GET)
-//	public ResponseEntity<List<User>> getMatches() {
-//		List<User> tests = userService.getMatches();
-//		return new ResponseEntity<List<User>>(tests, HttpStatus.OK);
-//	}
-
+	@RequestMapping(value="/userWorkMatch/{userWorkLat:.+}/{userWorkLng:.+}", method = RequestMethod.GET )
+	public ResponseEntity<List<User>> getWorkMatches(@PathVariable("userWorkLat") String userWorkLat, @PathVariable("userWorkLng") String userWorkLng) {
+		List<User> userWorkMatches = userService.getWorkMatches(userWorkLat, userWorkLng);
+		return new ResponseEntity<List<User>>(userWorkMatches, HttpStatus.OK);
+	}
 
 }
