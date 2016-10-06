@@ -54,6 +54,26 @@ public class UserController {
 	public ResponseEntity<Void> User(@PathVariable("id") Integer userId) {
 		userService.deleteUser(userId);
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
-	}	
+	}
+
+	@RequestMapping(value="/test/{homeLat:.+}/{homeLng:.+}", method = RequestMethod.GET )
+	public ResponseEntity<List<User>> getMatches(@PathVariable("homeLat") String homeLat, @PathVariable("homeLng") String homeLng) {
+		List<User> tests = userService.getMatches(homeLat, homeLng);
+		return new ResponseEntity<List<User>>(tests, HttpStatus.OK);
+	}
+	
+//	Commetted out the code below that query the database and filter the lat and lng of their distance from a specific location
+//	@RequestMapping(value="/test/{id}", method = RequestMethod.GET )
+//	public ResponseEntity<User> getUserTestById(@PathVariable("id") Integer id) {
+//		User test = userService.getUserById(id);
+//		return new ResponseEntity<User>(test, HttpStatus.OK);
+//	}
+//	
+//	@RequestMapping(value= "/test", method = RequestMethod.GET)
+//	public ResponseEntity<List<User>> getMatches() {
+//		List<User> tests = userService.getMatches();
+//		return new ResponseEntity<List<User>>(tests, HttpStatus.OK);
+//	}
+
 
 }

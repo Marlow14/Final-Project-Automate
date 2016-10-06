@@ -33,6 +33,18 @@ public class User implements Serializable {
 
 	@Column(name = "work_address")
 	private String workAddress;
+	
+	@Column(name = "home_lat")
+	private String homeLat;
+	
+	@Column(name = "home_lng")
+	private String homeLng;
+
+	@Column(name = "work_lat")
+	private String workLat;
+	
+	@Column(name = "work_lng")
+	private String workLng;
 
 	@Column(name = "user_name")
 	private String userName;
@@ -98,6 +110,22 @@ public class User implements Serializable {
 	public void setHomeAddress(String homeAddress) {
 		this.homeAddress = homeAddress;
 	}
+	
+	public String getHomeLat() {
+		return homeLat;
+	}
+
+	public void setHomeLat(String homeLat) {
+		this.homeLat = homeLat;
+	}
+	
+	public String getHomeLng() {
+		return homeLng;
+	}
+
+	public void setHomeLng(String homeLng) {
+		this.homeLng = homeLng;
+	}
 
 	public String getWorkAddress() {
 		return workAddress;
@@ -105,6 +133,22 @@ public class User implements Serializable {
 
 	public void setWorkAddress(String workAddress) {
 		this.workAddress = workAddress;
+	}
+	
+	public String getWorkLat() {
+		return workLat;
+	}
+
+	public void setWorkLat(String workLat) {
+		this.workLat = workLat;
+	}
+	
+	public String getWorkLng() {
+		return workLng;
+	}
+
+	public void setWorkLng(String workLng) {
+		this.workLng = workLng;
 	}
 
 	public String getUserName() {

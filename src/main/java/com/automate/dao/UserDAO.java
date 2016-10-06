@@ -44,6 +44,10 @@ public class UserDAO implements UserDAOInterface {
 		record.setEmail(user.getEmail());
 		record.setHomeAddress(user.getHomeAddress());
 		record.setWorkAddress(user.getWorkAddress());
+		record.setHomeLat(user.getHomeLat());
+		record.setHomeLng(user.getHomeLng());
+		record.setWorkLat(user.getWorkLat());
+		record.setWorkLng(user.getWorkLng());
 		record.setUserName(user.getUserName());
 		record.setPassword(user.getPassword());
 
@@ -54,24 +58,42 @@ public class UserDAO implements UserDAOInterface {
 	public void deleteUser(int userId) {
 		hibernateTemplate.delete(getUserById(userId));
 	}
-
+	
+	@Override
+	public User getUserTestById(int userId) {
+		
+		return hibernateTemplate.get(User.class, userId);
+	}
+	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<User> getMatches() {
-		int distance = 10000;
-		int userLat = 0;
-		int userLng = 0;
-		String hql = "SELECT id, ( 3959 * acos( cos( radians(" + userLat
-				+ ") ) * cos( radians( lat ) ) * cos( radians( lng ) - radians(" + userLng + ") ) + sin( radians("
-				+ userLat + ") ) * sin( radians( lat ) ) ) ) AS distance FROM users HAVING distance < " + distance
-				+ " ORDER BY distance LIMIT 0 , 20;";
+	public List<User> getMatches(String homeLat, String homeLng) {
 		
+		String hql = "SELECT userId, ( 3959 * acos( cos( radians(" + homeLat + ") ) * cos( radians( homeLat ) ) * cos( radians( homeLng ) - radians(" + homeLng + ") ) + sin( radians(" + homeLat + ") ) * sin( radians( homeLat ) ) ) ) AS distance FROM User ORDER BY distance";
 		return (List<User>) hibernateTemplate.find(hql);
 	}
-
+	
 	@Override
 	public boolean verifyPassword() {
 		//How do I even do this?
 		return false;
 	}
+	
+//	Commetted out the code below that query the user locations and arrange them in order of distance from a specific location - 10/5/16
+//	@SuppressWarnings("unchecked")
+//	@Override
+//	public List<User> getMatches() {
+//		
+//		
+////		String hql = "SELECT id, ( 3959 * acos( cos( radians(39) ) * cos( radians( homeLat ) ) * cos( radians( homeLng ) - radians(-77) ) + sin( radians(39) ) * sin( radians( homeLat ) ) ) ) AS distance FROM User HAVING distance < 16 ORDER BY distance LIMIT 0 , 20";
+//		
+//		String hql = "SELECT userId, ( 3959 * acos( cos( radians(39) ) * cos( radians( homeLat ) ) * cos( radians( homeLng ) - radians(-77) ) + sin( radians(39) ) * sin( radians( homeLat ) ) ) ) AS distance FROM User ORDER BY distance";
+//		
+////		String hql = "SELECT userId, ( 3959 * acos( cos( radians(39) ) * cos( radians( homeLat ) ) * cos( radians( homeLng ) - radians(-77) ) + sin( radians(39) ) * sin( radians( homeLat ) ) ) ) AS distance FROM User HAVING distance < 16 ORDER BY distance";
+//		
+//		
+//		
+//		return (List<User>) hibernateTemplate.find(hql);
+//	}
+	
 }

@@ -45,5 +45,28 @@ public class UserService implements UserServiceInterface {
 		userDAO.deleteUser(userId);
 
 	}
+
+	@Override
+	public List<User> getMatches(String homeLat, String homeLng) {
+		return userDAO.getMatches(homeLat, homeLng);
+		
+	}
 	
+	@Override
+	public User getUserTestById(int userId) {
+		User objTest = userDAO.getUserTestById(userId);
+		return objTest;
+	}
+	
+//	@Override
+//	public List<User> getMatches() {
+//		return userDAO.getMatches();
+//	}
+
+	@Override
+	public boolean verifyPassword() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }
