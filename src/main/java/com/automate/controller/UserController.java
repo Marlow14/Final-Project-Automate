@@ -68,4 +68,9 @@ public class UserController {
 		return new ResponseEntity<List<User>>(userWorkMatches, HttpStatus.OK);
 	}
 
+	@RequestMapping(value="/userlogin", method = RequestMethod.POST)
+	public ResponseEntity<List<User>> userLoginPlus(@RequestBody User member, UriComponentsBuilder builder){
+				
+		return new ResponseEntity<List<User>>(HttpStatus.OK);
+	}
 }

@@ -76,8 +76,8 @@ public class UserDAO implements UserDAOInterface {
 	}
 	
 	@Override
-	public boolean verifyPassword() {
-		//How do I even do this?
+	public boolean verifyPassword(String userName, String password) {
+		String hql = "FROM Member where user_name = '" +  userName + "' AND password = '" + password + "'";
 		return false;
 	}
 	
