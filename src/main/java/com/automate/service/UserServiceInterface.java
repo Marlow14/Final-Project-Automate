@@ -13,6 +13,6 @@ public interface UserServiceInterface {
 	void deleteUser(int userId);
 	public List<User> getHomeMatches(String userHomeLat, String userHomeLng);
 	public List<User> getWorkMatches(String userWorkLat, String userWorkLng);
-	public boolean verifyPassword(String userName, String password);
+	public List<User> verifyPassword(String userName, String password);
 
 }

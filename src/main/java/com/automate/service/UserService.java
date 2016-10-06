@@ -59,9 +59,9 @@ public class UserService implements UserServiceInterface {
 	}
 	
 	@Override
-	public boolean verifyPassword(String userName, String password) {
+	public List<User> verifyPassword(String userName, String password) {
 		// TODO Auto-generated method stub
-		return false;
+		return userDAO.verifyPassword(userName, password);
 	}
 
 }

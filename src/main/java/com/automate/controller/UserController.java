@@ -69,8 +69,8 @@ public class UserController {
 	}
 
 	@RequestMapping(value="/userlogin", method = RequestMethod.POST)
-	public ResponseEntity<List<User>> userLoginPlus(@RequestBody User member, UriComponentsBuilder builder){
-				
-		return new ResponseEntity<List<User>>(HttpStatus.OK);
+	public ResponseEntity<List<User>> userLoginPlus(@RequestBody User member){
+		List<User> success = userService.verifyPassword(member.getUserName(), member.getPassword());
+		return new ResponseEntity<List<User>>(success, HttpStatus.OK);
 	}
 }

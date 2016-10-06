@@ -75,10 +75,11 @@ public class UserDAO implements UserDAOInterface {
 		return (List<User>) hibernateTemplate.find(hql);
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
-	public boolean verifyPassword(String userName, String password) {
+	public List<User> verifyPassword(String userName, String password) {
 		String hql = "FROM Member where user_name = '" +  userName + "' AND password = '" + password + "'";
-		return false;
+		return (List<User>) hibernateTemplate.find(hql);
 	}
 	
 }
