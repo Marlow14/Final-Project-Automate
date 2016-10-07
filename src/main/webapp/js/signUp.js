@@ -2,11 +2,29 @@
 
 // This function runs when a user uses the sign up form and is run before any data is submitted to the database
 
+
+$.fn.serializeObject = function()
+{
+    var o = {};
+    var a = this.serializeArray();
+    $.each(a, function() {
+        if (o[this.name] !== undefined) {
+            if (!o[this.name].push) {
+                o[this.name] = [o[this.name]];
+            }
+            o[this.name].push(this.value || '');
+        } else {
+            o[this.name] = this.value || '';
+        }
+    });
+    return o;
+};
+
+
 $(function(){
-	var mapApiCallSuccess = false;
 	
-    $('#submitSignUp').click(function(e){
-		e.preventDefault();
+    $('#submitSignUp').click(function(){
+
 		var homeAddress = $("#homeAddress").val();
 		var geocoder;
 		geocoder = new google.maps.Geocoder();
@@ -18,26 +36,35 @@ $(function(){
 				var lat = results[0].geometry.location.lat();
 				var lng = results[0].geometry.location.lng();
 				$("#homeLat").val(lat);
-				$("#homeLng").val(lng);
-				mapApiCallSuccess = true;
+				$("#homeLng").val(lng);	
+
+				var data = JSON.stringify($("#signUpForm").serializeObject());
+				
+				$.ajax({
+					beforeSend: function(xhrObj){
+						xhrObj.setRequestHeader("Content-Type","application/json");
+						xhrObj.setRequestHeader("Accept","application/json");
+					},
+					type: "POST",
+					url: "/user",       
+					data: data,               
+					dataType: "json",
+					success: function(json){
+					   console.log(json);
+					}
+				});
+					
 				
 			// Specific error handling when requests to geocode fail
 			// No data is submitted to database if coords cannot be obtained
 				
 			} else if (status == 'OVER_QUERY_LIMIT' || status == 'UNKNOWN_ERROR') {
 				alert("Internal server error; please try again later");
-				mapApiCallSuccess = false;
 			} else {
 				alert("Error in reading address; please verify it is correct");
-				mapApiCallSuccess = false;
 			}
 		});
 		
-		if(mapApiCallSuccess) {
-			$.post("/user", $("#signUpForm").serialize(), function(data){
-		
-			}, "json")	
-		}
 	});
 	
 })

@@ -53,11 +53,13 @@ public class UserController {
         headers.setLocation(builder.path("/user/{id}").buildAndExpand(user.getUserId()).toUri());
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
 	}
+	
 	@RequestMapping(value="/user/{id}", method = RequestMethod.PUT )
 	public ResponseEntity<User> updateUser(@RequestBody User user) {
 		userService.updateUser(user);
 		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
+	
 	@RequestMapping(value="/user/{id}", method = RequestMethod.DELETE )
 	public ResponseEntity<Void> User(@PathVariable("id") Integer userId) {
 		userService.deleteUser(userId);
@@ -70,11 +72,11 @@ public class UserController {
 		return new ResponseEntity<List<User>>(userHomeMatches, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value="/userWorkMatch/{userWorkLat:.+}/{userWorkLng:.+}", method = RequestMethod.GET )
+/*	@RequestMapping(value="/userWorkMatch/{userWorkLat:.+}/{userWorkLng:.+}", method = RequestMethod.GET )
 	public ResponseEntity<List<User>> getWorkMatches(@PathVariable("userWorkLat") String userWorkLat, @PathVariable("userWorkLng") String userWorkLng) {
 		List<User> userWorkMatches = userService.getWorkMatches(userWorkLat, userWorkLng);
 		return new ResponseEntity<List<User>>(userWorkMatches, HttpStatus.OK);
-	}
+	}*/
 
 	@RequestMapping(value="/userlogin", method = RequestMethod.POST)
 	public ResponseEntity<List<User>> userLoginPlus(@RequestBody User member){

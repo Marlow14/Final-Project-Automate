@@ -109,7 +109,8 @@
     </nav>
     <header>
 
-    <!-- Header -->        <div class="container">
+    <!-- Header -->        
+		<div class="container">
             <div class="intro-text">
                 <div class="intro-lead-in">Connect. Commute. Conserve.</div>
                 <div class="intro-heading">AutoMate</div>
@@ -144,7 +145,7 @@
                 </div>
                 <div class="col-md-4">
                          <div>
-                        <img src="img/TireAM.png">
+                        <img src="img/TireAm.png">
                         </div>
                     <h4 class="service-heading">Commute</h4>
                     <p class="text-muted">Whether you're commuting to work every day, or just driving one time for a special event, AutoMate makes finding a carpool quick and easy.</p>
@@ -164,7 +165,7 @@
             <div class="row">
                 <div class="col-lg-14 text-center">
                     <h2 class="section-heading">Sign Up</h2>
-                    <form name="signUpForm" id="signUpForm" action="/signUp" method="post" novalidate style="margin-left: 28em">
+                    <form name="signUpForm" id="signUpForm" method="POST" novalidate style="margin-left: 28em">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -200,15 +201,15 @@
                                     <p class="help-block text-danger"></p>
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" class="form-control" placeholder="Confirm Password *" name="confirmedPassword" id="confirmPassword" required data-validation-required-message="Please retype your password.">
+                                    <input type="password" class="form-control" placeholder="Confirm Password *" id="confirmPassword" required data-validation-required-message="Please retype your password.">
                                     <p class="help-block text-danger"></p>
                                 </div>
                                 <!-- Hidden form fields to hold latitude/longitude data -->
                                 <div class="form-group">
-                                    <input type="hidden" value="" id="homeLat">
+                                    <input type="hidden" value="" name="homeLat" id="homeLat">
                                 </div>
                                 <div class="form-group">
-                                    <input type="hidden" value="" id="homeLng">
+                                    <input type="hidden" value="" name="homeLng" id="homeLng">
                                 </div>
                             <div class="clearfix"></div>
                             <div class="col-lg-12 text-center">
@@ -217,6 +218,7 @@
                             </div>
                         </div>
                     </form>
+					
                 </div>
             </div>
         </div>
@@ -439,51 +441,13 @@
             </div>
     <script>
     // Get the modal
-    var modal = document.getElementById("myModal");
-    // Get the button that opens the modal
-    var btn = document.getElementById("privacy");
-    // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
-    // When the user clicks the button, open the modal
-    btn.onclick = function() {
-        modal.style.display = "block";
-    }
-    // When the user clicks on <span> (x), close the modal
-    span.onclick = function() {
-        modal.style.display = "none";
-    }
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-        if (event.target == modal) {
-        modal.style.display = "none";
-        }
-    }
-    var modalTwo = document.getElementById("myModalTwo")
-    var btnTwo = document.getElementById("terms"); 
-    var spanTwo = document.getElementById("closeTwo")[0]; 
-    btnTwo.onclick = function() {
-        modalTwo.style.display = "block";
-    }
-    spanTwo.onclick = function() {
-        modalTwo.style.display = "none"; 
-    }
-    window.onclick = function(event) {
-        if (event.target == modalTwo)
-    }
+   <!--  -->
+<!--window.onclick = function(event) { -->
+<!--    if (event.target == modalTwo) -->
+<!--} -->
     
     </script><!--endModalScript-->
 
-    <script type="text/javascript">
-        document.getElementById("buttoneOne").onclick = function () {
-        location.href = "signUp.html";
-        };
-    </script>
-
-    <script type="text/javascript">
-        document.getElementById("buttonTwo").onclick = function () {
-        location.href = "logIn.html";
-        };
-    </script>
     <!-- jQuery -->
     <script src="vendor/jquery/jquery.min.js"></script>
 

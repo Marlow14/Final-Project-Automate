@@ -52,11 +52,11 @@ public class UserService implements UserServiceInterface {
 		
 	}
 	
-	@Override
+/*	@Override
 	public List<User> getWorkMatches(String userWorkLat, String userWorkLng) {
 		return userDAO.getWorkMatches(userWorkLat, userWorkLng);
 		
-	}
+	}*/
 	
 	@Override
 	public List<User> verifyPassword(String userName, String password) {
