@@ -2,6 +2,8 @@ package com.automate.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -22,7 +24,13 @@ public class UserController {
 	
 	@Autowired
 	private UserServiceInterface userService;
-
+	
+	@RequestMapping(value="/")
+	public ModelAndView index(HttpServletRequest request, ModelAndView mv) {
+		mv.setViewName("index");
+		return mv;
+	}
+	
 	@RequestMapping(value="/user/{id}", method = RequestMethod.GET )
 	public ResponseEntity<User> getUserById(@PathVariable("id") Integer id) {
 		User user = userService.getUserById(id);
