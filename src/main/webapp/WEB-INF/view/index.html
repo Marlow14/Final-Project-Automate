@@ -144,7 +144,7 @@
                 </div>
                 <div class="col-md-4">
                          <div>
-                        <img src="img/TireAM.png">
+                        <img src="img/TireAm.png">
                         </div>
                     <h4 class="service-heading">Commute</h4>
                     <p class="text-muted">Whether you're commuting to work every day, or just driving one time for a special event, AutoMate makes finding a carpool quick and easy.</p>
@@ -164,7 +164,7 @@
             <div class="row">
                 <div class="col-lg-14 text-center">
                     <h2 class="section-heading">Sign Up</h2>
-                    <form name="signUpForm" id="signUpForm" action="/signUp" method="post" novalidate style="margin-left: 28em">
+                    <form name="signUpForm" id="signUpForm" method="post" novalidate style="margin-left: 28em">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -228,22 +228,22 @@
             <div class="row">
                 <div class="col-lg-14 text-center">
                     <h2 class="section-heading">Log In</h2>
-                    <form name="sentMessage" id="contactForm" novalidate style="margin-left: 28em">
+                    <form name="loginForm" id="loginForm" method="post" novalidate style="margin-left: 28em">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Username *" id="username" required data-validation-required-message="Please enter your username.">
+                                    <input type="text" class="form-control" placeholder="Username *" name="userName" id="username" required data-validation-required-message="Please enter your username.">
                                     <p class="help-block text-danger"></p>
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" class="form-control" placeholder="Password *" id="password" required data-validation-required-message="Please enter your password.">
+                                    <input type="password" class="form-control" placeholder="Password *" name="password" id="password" required data-validation-required-message="Please enter your password.">
                                     <p class="help-block text-danger"></p>
                                 </div>
                             <div class="clearfix"></div>
                             <div class="col-lg-12 text-center">
                                 <div id="success"></div>
 
-                                <button id="buttonTwo" type="submit" class="btn btn-xl">Submit</button>
+                                <button id="submitLogin" type="button" class="btn btn-xl">Submit</button>
 
                             </div>
                         </div>

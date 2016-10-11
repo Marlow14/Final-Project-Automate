@@ -63,7 +63,7 @@ public class UserDAO implements UserDAOInterface {
 	@Override
 	public List<User> getHomeMatches(String userHomeLat, String userHomeLng) {
 		
-		String hql = "SELECT userId, ( 3959 * acos( cos( radians(" + userHomeLat + ") ) * cos( radians( homeLat ) ) * cos( radians( homeLng ) - radians(" + userHomeLng + ") ) + sin( radians(" + userHomeLat + ") ) * sin( radians( homeLat ) ) ) ) AS distance FROM User ORDER BY distance";
+		String hql = "SELECT userName, email, ( 3959 * acos( cos( radians(" + userHomeLat + ") ) * cos( radians( homeLat ) ) * cos( radians( homeLng ) - radians(" + userHomeLng + ") ) + sin( radians(" + userHomeLat + ") ) * sin( radians( homeLat ) ) ) ) AS distance FROM User ORDER BY distance";
 		return (List<User>) hibernateTemplate.find(hql);
 	}
 	
