@@ -101,7 +101,7 @@ $('#getMatches').click(function(){
 	
 	$.get("/userHomeMatch", function(data){
 		console.log(data);
-		window.location = "/matches"
+		window.location = "/matches";
 			
 	})
 	

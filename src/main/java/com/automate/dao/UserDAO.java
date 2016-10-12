@@ -4,6 +4,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 import com.automate.model.User;
 
@@ -12,6 +15,9 @@ public class UserDAO implements UserDAOInterface {
 	
 	@Autowired
 	private HibernateTemplate hibernateTemplate;
+	
+	@Autowired
+	private SessionFactory sessionFactory;
 	
 	@Override
 	public User getUserById(int userId) {
@@ -63,7 +69,7 @@ public class UserDAO implements UserDAOInterface {
 	@Override
 	public List<User> getHomeMatches(String userHomeLat, String userHomeLng) {
 		
-		String hql = "SELECT userName, email, ( 3959 * acos( cos( radians(" + userHomeLat + ") ) * cos( radians( homeLat ) ) * cos( radians( homeLng ) - radians(" + userHomeLng + ") ) + sin( radians(" + userHomeLat + ") ) * sin( radians( homeLat ) ) ) ) AS distance FROM User ORDER BY distance";
+		String hql = "SELECT U.firstName, U.lastName, U.email, ( 3959 * acos( cos( radians(" + userHomeLat + ") ) * cos( radians( homeLat ) ) * cos( radians( homeLng ) - radians(" + userHomeLng + ") ) + sin( radians(" + userHomeLat + ") ) * sin( radians( homeLat ) ) ) ) AS distance FROM User U ORDER BY distance";
 		return (List<User>) hibernateTemplate.find(hql);
 	}
 	
