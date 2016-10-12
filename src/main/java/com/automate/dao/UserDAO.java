@@ -4,7 +4,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
-
 import com.automate.model.User;
 
 @Repository
@@ -28,9 +27,9 @@ public class UserDAO implements UserDAOInterface {
 	}
 	
 	@Override
-	public boolean addUser(User user) {
-		hibernateTemplate.save(user);
-		return true;
+	public int addUser(User user) {
+		int savedId = (int) hibernateTemplate.save(user);
+		return savedId;
 	}
 
 	@Override
@@ -39,7 +38,7 @@ public class UserDAO implements UserDAOInterface {
 
 		record.setFirstName(user.getFirstName());
 		record.setLastName(user.getLastName());
-		record.setGender(user.getGender());
+//		record.setGender(user.getGender());
 		record.setCellPhone(user.getCellPhone());
 		record.setEmail(user.getEmail());
 		record.setHomeAddress(user.getHomeAddress());
@@ -48,7 +47,7 @@ public class UserDAO implements UserDAOInterface {
 		record.setHomeLng(user.getHomeLng());
 /*		record.setWorkLat(user.getWorkLat());
 		record.setWorkLng(user.getWorkLng());*/
-		record.setUserName(user.getUserName());
+//		record.setUserName(user.getUserName());
 		record.setPassword(user.getPassword());
 
 		hibernateTemplate.update(record);

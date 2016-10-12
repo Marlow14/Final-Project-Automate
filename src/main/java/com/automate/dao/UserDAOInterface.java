@@ -8,7 +8,7 @@ public interface UserDAOInterface {
 	
 	List<User> getAllUsers();
 	User getUserById(int userId);
-	boolean addUser(User user);
+	public int addUser(User user);
 	void updateUser(User user);
 	void deleteUser(int userId);
 	public List<User> getHomeMatches(String userHomeLat, String userHomeLng);

@@ -29,9 +29,9 @@ public class UserService implements UserServiceInterface {
 	}
 
 	@Override
-	public synchronized boolean addUser(User user) {
-		userDAO.addUser(user);
-		return true;
+	public synchronized int addUser(User user) {
+		return userDAO.addUser(user);
+		
 	}
 
 	@Override

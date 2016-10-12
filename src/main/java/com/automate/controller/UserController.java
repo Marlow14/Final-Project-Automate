@@ -3,17 +3,17 @@ package com.automate.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.util.UriComponentsBuilder;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.automate.service.UserServiceInterface;
@@ -31,6 +31,12 @@ public class UserController {
 		return mv;
 	}
 	
+	@RequestMapping(value="/profile")
+	public ModelAndView profile(HttpServletRequest request, HttpServletRequest response, ModelAndView mv) {
+		mv.setViewName("profile");
+		return mv;
+	}
+	
 	@RequestMapping(value="/user/{id}", method = RequestMethod.GET )
 	public ResponseEntity<User> getUserById(@PathVariable("id") Integer id) {
 		User user = userService.getUserById(id);
@@ -44,19 +50,20 @@ public class UserController {
 	}
 
 	@RequestMapping(value= "/user", method = RequestMethod.POST)
-	public ResponseEntity<Void> userPerson(@RequestBody User user, UriComponentsBuilder builder) {
-        boolean flag = userService.addUser(user);
-        if (flag == false) {
+	public ResponseEntity<Void> userPerson(@ModelAttribute User user, HttpSession sessionObj) {
+        int savedId = userService.addUser(user);
+        if (savedId == 0) {
         	return new ResponseEntity<Void>(HttpStatus.CONFLICT);
         }
-        HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(builder.path("/user/{id}").buildAndExpand(user.getUserId()).toUri());
-        return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+        user.setUserId(savedId);
+        sessionObj.setAttribute("user", user);
+        return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}
 	
 	@RequestMapping(value="/user/{id}", method = RequestMethod.PUT )
-	public ResponseEntity<User> updateUser(@RequestBody User user) {
+	public ResponseEntity<User> updateUser(@ModelAttribute User user, HttpSession sessionObj) {
 		userService.updateUser(user);
+		sessionObj.setAttribute("user", user);
 		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
 	
