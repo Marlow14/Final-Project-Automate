@@ -52,6 +52,13 @@ public class UserController {
 		return mv;
 	}
 	
+	@RequestMapping(value="matches")
+	public ModelAndView matchpage(HttpServletRequest request, HttpServletResponse response, ModelAndView mv){
+		
+		mv.setViewName("matches");
+		return mv;
+	}
+	
 	@RequestMapping(value="/user/{id}", method = RequestMethod.GET )
 	public ResponseEntity<User> getUserById(@PathVariable("id") Integer id) {
 		User user = userService.getUserById(id);
@@ -92,7 +99,9 @@ public class UserController {
 		List<User> userHomeMatches = userService.getHomeMatches(userInfo.getHomeLat(), userInfo.getHomeLng());
 		
 		sessionObj.setAttribute("matches", userHomeMatches);
-	
+		
+//		User matches = (User) sessionObj.getAttribute("matches");
+		
 		return new ResponseEntity<List<User>>(userHomeMatches, HttpStatus.OK);
 	}
 	
