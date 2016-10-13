@@ -1,6 +1,6 @@
 
     // Get the modal
-    var modal = document.getElementById("myModal");
+    var modal = document.getElementById("privacyModal");
 
     // Get the button that opens the modal
     var btn = document.getElementById("privacy");
@@ -11,6 +11,7 @@
     // When the user clicks the button, open the modal
     btn.onclick = function() {
         modal.style.display = "block";
+		modalTwo.style.display = "none";
     
     // When the user clicks on <span> (x), close the modal
     span.onclick = function() {
@@ -20,25 +21,26 @@
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function(event) {
         if (event.target == modal) {
-        modal.style.display = "none";
+			modal.style.display = "none";
         }
     }};
 
-    var modalTwo = document.getElementById("myModalTwo");
+    var modalTwo = document.getElementById("termsModal");
 
     var btnTwo = document.getElementById("terms"); 
 
     var spanTwo = document.getElementsByClassName("closeTwo")[0]; 
 
     btnTwo.onclick = function() {
-        mymodalTwo.style.display = "block";
+        modalTwo.style.display = "block";
+		modal.style.display = "none";
 
     spanTwo.onclick = function() {
-        mymodalTwo.style.display = "none"; 
+        modalTwo.style.display = "none"; 
     }
 
     window.onclick = function(event) {
-        if (event.target == mymodalTwo) {
-            mymodalTwo.style.display = "none";
-          }
-        }};
+        if (event.target == modalTwo) {
+            modalTwo.style.display = "none";
+        }
+    }};

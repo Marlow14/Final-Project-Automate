@@ -219,9 +219,8 @@
                 </div>
             </div>
 		</div>
-		<br/>
-		<div id="dialog" title="LOG IN ERROR">
-			<p text="There was a problem logging in... Username or password invalid"></p>
+		<div id="dialog" title="LOG IN ERROR" style="display: none;">
+			There was a problem logging in... Username or password invalid
 		</div>
     </section>
 
@@ -259,11 +258,11 @@
     </footer>
 
     <!-- The Modal -->
-	<div id="myModal" class="modal">
+	<div id="privacyModal" class="modal">
 
 		<!-- Modal content -->
         <div class="modal-content">
-            <span class="close">X</span>
+            <span class="close" id="privacySpan">X</span>
             <h4 style="text-align: center"><strong>Privacy Policy</strong></h4>
             <p>
 				This Privacy Policy governs the manner in which AutoMate collects, uses, maintains and discloses information collected from users (each, a "User") of the http://www.automate.com website ("Site").
@@ -345,9 +344,9 @@
             </p>
         </div>
 	
-		<div id="mymodalTwo" class="modalTwo">
+		<div id="termsModal" class="modalTwo">
 			<div class="modal-contentTwo">
-				<span class="closeTwo">X</span>
+				<span class="closeTwo" id="termsSpan">X</span>
 				<p>
 				<h4 style="text-align: center"><strong>Terms of Use ("Terms")</strong></h4>
 				<br/>
@@ -443,5 +442,4 @@
 	
 
 </body>
-
 </html>

@@ -112,7 +112,7 @@ public class UserController {
 		String isValid = member.getPassword();
 		if (!(success.get(0).getPassword().equals(isValid))) {
 			sessionObj.setAttribute("error", "Username or password invalid!");
-			return null;
+			return new ResponseEntity<List<User>>(HttpStatus.CONFLICT);
 		} else {
 			sessionObj.setAttribute("user", success.get(0));
 			return new ResponseEntity<List<User>>(success, HttpStatus.OK); // likely
