@@ -23,9 +23,9 @@
     <!-- Custom Fonts -->
     <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Kaushan+Script" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css">
 
     <!-- Theme CSS -->
     <link href="css/agency.min.css" rel="stylesheet">
@@ -50,7 +50,7 @@
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
                 </button>
-                <a href="index.html">
+                <a href="/">
                     <img src="img/AMtransparent2.png"> 
                 </a>
             </div>
@@ -62,13 +62,10 @@
                         <a href="#page-top"></a>
                     </li>
                     <li>
-                        <a href="index.html">About</a>
+                        <a href="/">Home</a>
                     </li>
                     <li>
-                        <a href="signUp.html">Sign Up</a>
-                    </li>
-                    <li>
-                        <a href="logIn.html">Log In</a>
+                        <a href="/userlogout">Log Out</a>
                     </li>
                 </ul>
             </div>
@@ -168,7 +165,7 @@
             <div class="col-md-8">
               <input type="button" class="btn btn-primary" value="Save Changes" id="updateProfile">
               <span></span>
-              <input type="button" class="btn btn-primary" value="Get Matches">
+              <input type="button" class="btn btn-primary" value="Get Matches" id="getMatches">
             </div>
           </div>
         </form>
@@ -200,7 +197,7 @@
     <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 
     <!-- Plugin JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+    <script src="js/jquery.easing.min.js"></script>
 
     <!-- Contact Form JavaScript -->
     <script src="js/jqBootstrapValidation.js"></script>
@@ -218,7 +215,7 @@
 	
 	<!-- Custom JavaScript -->
 	<script src="js/updateProfile.js"></script>
-	<script src="js/modal.js"></script>
+	<script src="js/getMatches.js"></script>
 	
 </body>
 

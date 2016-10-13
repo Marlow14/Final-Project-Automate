@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
+
 import com.automate.model.User;
 
 @Repository
@@ -62,7 +63,7 @@ public class UserDAO implements UserDAOInterface {
 	@Override
 	public List<User> getHomeMatches(String userHomeLat, String userHomeLng) {
 		
-		String hql = "SELECT userId, ( 3959 * acos( cos( radians(" + userHomeLat + ") ) * cos( radians( homeLat ) ) * cos( radians( homeLng ) - radians(" + userHomeLng + ") ) + sin( radians(" + userHomeLat + ") ) * sin( radians( homeLat ) ) ) ) AS distance FROM User ORDER BY distance";
+		String hql = "SELECT U.firstName, U.lastName, U.email, ( 3959 * acos( cos( radians(" + userHomeLat + ") ) * cos( radians( homeLat ) ) * cos( radians( homeLng ) - radians(" + userHomeLng + ") ) + sin( radians(" + userHomeLat + ") ) * sin( radians( homeLat ) ) ) ) AS distance FROM User U ORDER BY distance";
 		return (List<User>) hibernateTemplate.find(hql);
 	}
 	
@@ -77,7 +78,7 @@ public class UserDAO implements UserDAOInterface {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> verifyPassword(String userName, String password) {
-		String hql = "FROM User where userName = '" +  userName + "' AND password = '" + password + "'";
+		String hql = "FROM User where userName = '" +  userName + "'";
 		return (List<User>) hibernateTemplate.find(hql);
 	}
 	

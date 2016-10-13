@@ -60,7 +60,6 @@ public class UserService implements UserServiceInterface {
 	
 	@Override
 	public List<User> verifyPassword(String userName, String password) {
-		// TODO Auto-generated method stub
 		return userDAO.verifyPassword(userName, password);
 	}
 
