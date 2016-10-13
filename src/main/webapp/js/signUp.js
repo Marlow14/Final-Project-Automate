@@ -86,16 +86,50 @@ $('#submitLogin').click(function(){
 		data:data,
 		dataType:'json',
 		success:function(json){
+			$("#dialog").dialog().remove();
 			console.log(json);
 			 sessionStorage.setItem('user', JSON.stringify(json));
 			 var user = sessionStorage.getItem('user')
 			console.log(user);
 			 window.location = "/userpage";
-		}
+		},
+		error: function (e, status) {
+//			window.location = "/";
+            if (e.status == 500 || e.status == 404){
+//                alert("Error! User Does Not Exist!");
+//            	$( "#dialog" ).dialog({
+//                	autoOpen:false,
+//                buttons: {
+//                    OK: function() {$(this).dialog("close");}
+//                 },
+//            	 hide: "puff",
+//               show : "slide",
+//            	 modal: true,
+//                });
+//                $( "#submitLogin" ).click(function() {
+//                    $( "#dialog" ).dialog( "open" );
+//                 });
+            }
+        }
 		
 	})
 	
 })
+
+$( function() {
+    $( "#dialog" ).dialog({
+    	autoOpen:false,
+    	buttons: {
+            OK: function() {$(this).dialog("close");}
+         },
+         hide: "puff",
+         show : "slide",
+         modal: true,
+    });
+    $( "#submitLogin" ).click(function() {
+        $( "#dialog" ).dialog( "open" );
+     });
+});
 
 $('#getMatches').click(function(){
 	

@@ -20,6 +20,8 @@
     <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  	<link rel="stylesheet" href="/resources/demos/style.css">
 
     <!-- Theme CSS -->
     <link href="css/agency.min.css" rel="stylesheet">
@@ -243,14 +245,14 @@
                             <div class="col-lg-12 text-center">
                                 <div id="success"></div>
 
-                                <button id="submitLogin" type="button" class="btn btn-xl">Submit</button>
+                                <button id="submitLogin" class="page-scroll" href="#logIn" type="button" class="btn btn-xl">Submit</button>
 								
                             </div>
                         </div>
                     </form>
-                    <span th:text="${session.error}"></span>
+                    
                 </div>
-            
+            <div id="dialog" title="LOG IN ERROR">There was a problem logging in... Username or password invalid</div>
     </section>
     <br/>
     <br/>
@@ -474,7 +476,7 @@
     
     </script><!--endModalScript-->
 
-    <script type="text/javascript">
+  <!--    <script type="text/javascript">
         document.getElementById("buttoneOne").onclick = function () {
         location.href = "signUp.html";
         };
@@ -484,9 +486,11 @@
         document.getElementById("buttonTwo").onclick = function () {
         location.href = "logIn.html";
         };
-    </script>
+    </script>-->
     <!-- jQuery -->
     <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="vendor/bootstrap/js/bootstrap.min.js"></script>

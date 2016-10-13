@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -114,7 +115,7 @@ public class UserController {
 	}
 
 	@RequestMapping(value="/userlogin", method = RequestMethod.POST)
-	public ResponseEntity<List<User>> userLoginPlus(@RequestBody User member, HttpSession sessionObj, HttpServletRequest request, HttpServletResponse response){
+	public ResponseEntity<List<User>> userLoginPlus(@Valid @RequestBody User member, HttpSession sessionObj){
 		
 		List<User> success = userService.verifyPassword(member.getUserName(), member.getPassword());
 		
@@ -122,6 +123,7 @@ public class UserController {
 		if(!(success.get(0).getPassword().equals(isValid))){
 			String invalid = " error ";
 			System.out.println(invalid);
+			
 			sessionObj.setAttribute("error", "Username or password invalid!");
 			return null;
 		}else{
@@ -130,5 +132,13 @@ public class UserController {
 		
 		return new ResponseEntity<List<User>>(success, HttpStatus.OK);
 		}
+	}
+	
+	@RequestMapping(value="/userlogout")
+	public ModelAndView userLogout(HttpSession sessionObj, ModelAndView mv){
+		mv.setViewName("index");
+		sessionObj.invalidate();
+		return mv;
+		
 	}
 }
