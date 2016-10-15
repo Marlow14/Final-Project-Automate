@@ -4,6 +4,34 @@
 
 $(function(){
 	
+	$("#loginForm").validate({
+		onsubmit:false,
+		errorClass:"text-danger",
+		rules:{
+			firstName:{required:true, minlength:1},
+			lastName:{required:true, minlength:1},
+			gender:{required:true},
+			homeAddress:{required:true},
+			email:{required:true,
+					email:true},
+			cellphone:{required:true},
+			newUserName:{required:true, minlength:3},
+			newPassword:{required:true, minlength:6},
+			confirmedPassword:{required:true,
+								equalTo:"#newPassword"}
+		},
+		messages:{
+			firstName:{required:"Must enter a first name", minlength:"First name must be at least 2 characters long"},
+			lastName:{required:"Must enter a last name", minlength:"Last name must be at least 2 characters long"},
+			gender:{required:"Gender required"},
+			homeAddress:{required:"Must enter an address"},
+			email:{required:"Must enter an email",email:"Please enter a valid email"},
+			cellphone:{required:"Must enter a phone number"},
+			newUserName:{required:"Must enter a username", minlength:"Must be at least 3 characters long"},
+			newPassword:{required:"Must enter a password", minlength:"Password must be at least 6 characters long"}
+		}
+	})
+	
     $('#submitSignUp').click(function(){
 
 		var homeAddress = $("#homeAddress").val();

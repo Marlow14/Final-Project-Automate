@@ -85,9 +85,13 @@ public class UserController {
 
 	@RequestMapping(value = "/userHomeMatch", method = RequestMethod.GET)
 	public ResponseEntity<List<User>> getMatches(HttpSession sessionObj, Model model) {
-		User userInfo = (User) sessionObj.getAttribute("user");
+		
+		User userInfo =  (User) sessionObj.getAttribute("user");
+		
 		List<User> userHomeMatches = userService.getHomeMatches(userInfo.getHomeLat(), userInfo.getHomeLng());
+		
 		sessionObj.setAttribute("matches", userHomeMatches);
+		
 		return new ResponseEntity<List<User>>(userHomeMatches, HttpStatus.OK); // likely
 																				// can
 																				// return
@@ -108,11 +112,14 @@ public class UserController {
 
 	@RequestMapping(value = "/userlogin", method = RequestMethod.POST)
 	public ResponseEntity<List<User>> userLoginPlus(@Valid @RequestBody User member, HttpSession sessionObj) {
+		
 		List<User> success = userService.verifyPassword(member.getUserName(), member.getPassword());
+		
 		String isValid = member.getPassword();
+		
 		if (!(success.get(0).getPassword().equals(isValid))) {
 			sessionObj.setAttribute("error", "Username or password invalid!");
-			return null;
+			return new ResponseEntity<List<User>>(HttpStatus.CONFLICT);
 		} else {
 			sessionObj.setAttribute("user", success.get(0));
 			return new ResponseEntity<List<User>>(success, HttpStatus.OK); // likely
