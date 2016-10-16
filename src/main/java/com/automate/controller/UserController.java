@@ -66,12 +66,6 @@ public class UserController {
 		return mv;
 	}
 
-	@RequestMapping(value = "/matches")
-	public ModelAndView matches(HttpServletRequest request, HttpServletRequest response, ModelAndView mv) {
-		mv.setViewName("matches");
-		return mv;
-	}
-
 	/*
 	 * @RequestMapping(value="/user/{id}", method = RequestMethod.GET ) public
 	 * ResponseEntity<User> getUserById(@PathVariable("id") Integer id) { User
@@ -104,11 +98,11 @@ public class UserController {
 		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<Void> User(@PathVariable("id") Integer userId) {
-		userService.deleteUser(userId);
-		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
-	}
+//	@RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE)
+//	public ResponseEntity<Void> User(@PathVariable("id") Integer userId) {
+//		userService.deleteUser(userId);
+//		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+//	}
 
 	@RequestMapping(value = "/userHomeMatch", method = RequestMethod.GET)
 	public ResponseEntity<List<User>> getMatches(HttpSession sessionObj, Model model) {

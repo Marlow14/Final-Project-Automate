@@ -43,14 +43,14 @@ $(document).ready(function(){
 	//			window.location = "/";
 	            if (e.status == 500 || e.status == 409){
 //	                alert("Error! User Does Not Exist!");
-	            	$( "#dialog" ).dialog( "open" );
+	            	
 	            }
-                
+	            $( "#dialog" ).dialog( "open" );
 	        }
 			
 		})
 			
-		$( ".dialog" ).dialog({
+		$( "#dialog" ).dialog({
 	    	autoOpen:false,
 	    	buttons: {
 	            OK: function() {$(this).dialog("close");}
