@@ -8,16 +8,15 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.util.UriComponentsBuilder;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.ModelAndView.*;
 
@@ -26,7 +25,7 @@ import com.automate.model.User;
 
 @Controller
 public class UserController {
-	
+
 	@Autowired
 	private UserServiceInterface userService;
 	
@@ -60,85 +59,109 @@ public class UserController {
 		mv.setViewName("matches");
 		return mv;
 	}
-	
-	@RequestMapping(value="/user/{id}", method = RequestMethod.GET )
-	public ResponseEntity<User> getUserById(@PathVariable("id") Integer id) {
-		User user = userService.getUserById(id);
-		return new ResponseEntity<User>(user, HttpStatus.OK);
+
+	@RequestMapping(value = "/profile")
+	public ModelAndView profile(HttpServletRequest request, HttpServletRequest response, ModelAndView mv) {
+		mv.setViewName("profile");
+		return mv;
 	}
 
-	@RequestMapping(value= "/user", method = RequestMethod.GET)
-	public ResponseEntity<List<User>> getAllUsers() {
-		List<User> users = userService.getAllUsers();
-		return new ResponseEntity<List<User>>(users, HttpStatus.OK);
+	@RequestMapping(value = "/matches")
+	public ModelAndView matches(HttpServletRequest request, HttpServletRequest response, ModelAndView mv) {
+		mv.setViewName("matches");
+		return mv;
 	}
 
-	@RequestMapping(value= "/user", method = RequestMethod.POST)
-	public ResponseEntity<Void> userPerson(@RequestBody User user, UriComponentsBuilder builder) {
-        boolean flag = userService.addUser(user);
-        if (flag == false) {
-        	return new ResponseEntity<Void>(HttpStatus.CONFLICT);
-        }
-        HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(builder.path("/user/{id}").buildAndExpand(user.getUserId()).toUri());
-        return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+	/*
+	 * @RequestMapping(value="/user/{id}", method = RequestMethod.GET ) public
+	 * ResponseEntity<User> getUserById(@PathVariable("id") Integer id) { User
+	 * user = userService.getUserById(id); return new ResponseEntity<User>(user,
+	 * HttpStatus.OK); }
+	 */
+
+	/*
+	 * @RequestMapping(value= "/user", method = RequestMethod.GET) public
+	 * ResponseEntity<List<User>> getAllUsers() { List<User> users =
+	 * userService.getAllUsers(); return new ResponseEntity<List<User>>(users,
+	 * HttpStatus.OK); }
+	 */
+
+	@RequestMapping(value = "/user", method = RequestMethod.POST)
+	public ResponseEntity<Void> userPerson(@ModelAttribute User user, HttpSession sessionObj) {
+		int savedId = userService.addUser(user);
+		if (savedId == 0) {
+			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+		}
+		user.setUserId(savedId);
+		sessionObj.setAttribute("user", user);
+		return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}
-	@RequestMapping(value="/user/{id}", method = RequestMethod.PUT )
-	public ResponseEntity<User> updateUser(@RequestBody User user) {
+
+	@RequestMapping(value = "/user/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<User> updateUser(@ModelAttribute User user, HttpSession sessionObj) {
 		userService.updateUser(user);
+		sessionObj.setAttribute("user", user);
 		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
-	@RequestMapping(value="/user/{id}", method = RequestMethod.DELETE )
+
+	@RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> User(@PathVariable("id") Integer userId) {
 		userService.deleteUser(userId);
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}
 
-	@RequestMapping(value="/userHomeMatch", method = RequestMethod.GET )
+	@RequestMapping(value = "/userHomeMatch", method = RequestMethod.GET)
 	public ResponseEntity<List<User>> getMatches(HttpSession sessionObj, Model model) {
-		User userInfo = (User) sessionObj.getAttribute("user");
-			
+		
+		User userInfo =  (User) sessionObj.getAttribute("user");
+		
 		List<User> userHomeMatches = userService.getHomeMatches(userInfo.getHomeLat(), userInfo.getHomeLng());
-		System.out.println(userHomeMatches.toString());
 		
 		sessionObj.setAttribute("matches", userHomeMatches);
-		System.out.println(userHomeMatches.toString());
 		
-		return new ResponseEntity<List<User>>(userHomeMatches, HttpStatus.OK);
-	}
-	
-	@RequestMapping(value="/userWorkMatch/{userWorkLat:.+}/{userWorkLng:.+}", method = RequestMethod.GET )
-	public ResponseEntity<List<User>> getWorkMatches(@PathVariable("userWorkLat") String userWorkLat, @PathVariable("userWorkLng") String userWorkLng) {
-		
-		List<User> userWorkMatches = userService.getWorkMatches(userWorkLat, userWorkLng);
-		return new ResponseEntity<List<User>>(userWorkMatches, HttpStatus.OK);
+		return new ResponseEntity<List<User>>(userHomeMatches, HttpStatus.OK); // likely
+																				// can
+																				// return
+																				// void,
+																				// http
+																				// status
 	}
 
-	@RequestMapping(value="/userlogin", method = RequestMethod.POST)
-	public ResponseEntity<List<User>> userLoginPlus(@Valid @RequestBody User member, HttpSession sessionObj){
+	/*
+	 * @RequestMapping(value="/userWorkMatch/{userWorkLat:.+}/{userWorkLng:.+}",
+	 * method = RequestMethod.GET ) public ResponseEntity<List<User>>
+	 * getWorkMatches(@PathVariable("userWorkLat") String
+	 * userWorkLat, @PathVariable("userWorkLng") String userWorkLng) {
+	 * List<User> userWorkMatches = userService.getWorkMatches(userWorkLat,
+	 * userWorkLng); return new ResponseEntity<List<User>>(userWorkMatches,
+	 * HttpStatus.OK); }
+	 */
+
+	@RequestMapping(value = "/userlogin", method = RequestMethod.POST)
+	public ResponseEntity<List<User>> userLoginPlus(@Valid @RequestBody User member, HttpSession sessionObj) {
 		
 		List<User> success = userService.verifyPassword(member.getUserName(), member.getPassword());
 		
 		String isValid = member.getPassword();
-		if(!(success.get(0).getPassword().equals(isValid))){
-			String invalid = " error ";
-			System.out.println(invalid);
-			
+		
+		if (!(success.get(0).getPassword().equals(isValid))) {
 			sessionObj.setAttribute("error", "Username or password invalid!");
-			return null;
-		}else{
-		
-		sessionObj.setAttribute("user", success.get(0));
-		
-		return new ResponseEntity<List<User>>(success, HttpStatus.OK);
+			return new ResponseEntity<List<User>>(HttpStatus.CONFLICT);
+		} else {
+			sessionObj.setAttribute("user", success.get(0));
+			return new ResponseEntity<List<User>>(success, HttpStatus.OK); // likely
+																			// can
+																			// return
+																			// void,
+																			// http
+																			// status
 		}
 	}
-	
-	@RequestMapping(value="/userlogout")
-	public ModelAndView userLogout(HttpSession sessionObj, ModelAndView mv){
+
+	@RequestMapping(value = "/userlogout")
+	public ModelAndView userLogout(HttpSession sessionObj, ModelAndView mv) {
 		mv.setViewName("index");
 		sessionObj.invalidate();
 		return mv;
-		
 	}
 }

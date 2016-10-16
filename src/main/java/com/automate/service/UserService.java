@@ -29,9 +29,9 @@ public class UserService implements UserServiceInterface {
 	}
 
 	@Override
-	public synchronized boolean addUser(User user) {
-		userDAO.addUser(user);
-		return true;
+	public synchronized int addUser(User user) {
+		return userDAO.addUser(user);
+		
 	}
 
 	@Override
@@ -52,15 +52,14 @@ public class UserService implements UserServiceInterface {
 		
 	}
 	
-	@Override
+/*	@Override
 	public List<User> getWorkMatches(String userWorkLat, String userWorkLng) {
 		return userDAO.getWorkMatches(userWorkLat, userWorkLng);
 		
-	}
+	}*/
 	
 	@Override
 	public List<User> verifyPassword(String userName, String password) {
-		// TODO Auto-generated method stub
 		return userDAO.verifyPassword(userName, password);
 	}
 

@@ -2,27 +2,37 @@
 
 // This function runs when a user uses the sign up form and is run before any data is submitted to the database
 
-
-$.fn.serializeObject = function()
-{
-    var o = {};
-    var a = this.serializeArray();
-    $.each(a, function() {
-        if (o[this.name] !== undefined) {
-            if (!o[this.name].push) {
-                o[this.name] = [o[this.name]];
-            }
-            o[this.name].push(this.value || '');
-        } else {
-            o[this.name] = this.value || '';
-        }
-    });
-    return o;
-};
-
-
 $(function(){
-	
+
+//	$("#loginForm").validate({
+//		onsubmit:false,
+//		errorClass:"text-danger",
+//		rules:{
+//			firstName:{required:true, minlength:2},
+//			lastName:{required:true, minlength:2},
+//			gender:{required:true},
+//			homeAddress:{required:true},
+//			email:{required:true,
+//					email:true},
+//			cellphone:{required:true},
+//			newUserName:{required:true, minlength:3},
+//			newPassword:{required:true, minlength:6},
+//			confirmedPassword:{required:true,
+//								equalTo:"#newPassword"}
+//		},
+//		messages:{
+//			firstName:{required:"Must enter a first name", minlength:"First name must be at least 2 characters long"},
+//			lastName:{required:"Must enter a last name", minlength:"Last name must be at least 2 characters long"},
+//			gender:{required:"Gender required"},
+//			homeAddress:{required:"Must enter an address"},
+//			email:{required:"Must enter an email",email:"Please enter a valid email"},
+//			cellphone:{required:"Must enter a phone number"},
+//			newUserName:{required:"Must enter a username", minlength:"Must be at least 3 characters long"},
+//			newPassword:{required:"Must enter a password", minlength:"Password must be at least 6 characters long"}
+//		}
+//	})
+
+
     $('#submitSignUp').click(function(){
 
 		var homeAddress = $("#homeAddress").val();
@@ -38,22 +48,10 @@ $(function(){
 				$("#homeLat").val(lat);
 				$("#homeLng").val(lng);	
 
-				var data = JSON.stringify($("#signUpForm").serializeObject());
 				
-				$.ajax({
-					beforeSend: function(xhrObj){
-						xhrObj.setRequestHeader("Content-Type","application/json");
-						xhrObj.setRequestHeader("Accept","application/json");
-					},
-					type: "POST",
-					url: "/user",       
-					data: data,               
-					dataType: "json",
-					success: function(json){
-					   console.log(json);
-					}
-				});
-					
+				$.post("/user", $("#signUpForm").serialize(), function(data){
+					window.location = '/profile';
+				})
 				
 			// Specific error handling when requests to geocode fail
 			// No data is submitted to database if coords cannot be obtained
@@ -69,84 +67,3 @@ $(function(){
 	
 })
 
-$('#submitLogin').click(function(){
-	
-	var data = JSON.stringify($('#loginForm').serializeObject());
-	
-	$.ajax({
-		beforeSend: function(xhrObj){
-			xhrObj.setRequestHeader("Content-Type","application/json");
-			xhrObj.setRequestHeader("Accept","application/json");
-			
-		},
-	
-		type:"POST",
-		contentType:"application/json",
-		url:"/userlogin",
-		data:data,
-		dataType:'json',
-		success:function(json){
-			$("#dialog").dialog().remove();
-			console.log(json);
-			 sessionStorage.setItem('user', JSON.stringify(json));
-			 var user = sessionStorage.getItem('user')
-			console.log(user);
-			 window.location = "/userpage";
-		},
-		error: function (e, status) {
-//			window.location = "/";
-            if (e.status == 500 || e.status == 404){
-//                alert("Error! User Does Not Exist!");
-//            	$( "#dialog" ).dialog({
-//                	autoOpen:false,
-//                buttons: {
-//                    OK: function() {$(this).dialog("close");}
-//                 },
-//            	 hide: "puff",
-//               show : "slide",
-//            	 modal: true,
-//                });
-//                $( "#submitLogin" ).click(function() {
-//                    $( "#dialog" ).dialog( "open" );
-//                 });
-            }
-        }
-		
-	})
-	
-})
-
-$( function() {
-    $( "#dialog" ).dialog({
-    	autoOpen:false,
-    	buttons: {
-            OK: function() {$(this).dialog("close");}
-         },
-         hide: "puff",
-         show : "slide",
-         modal: true,
-    });
-    $( "#submitLogin" ).click(function() {
-        $( "#dialog" ).dialog( "open" );
-     });
-});
-
-$('#getMatches').click(function(){
-	
-	$.get("/userHomeMatch", function(data){
-		console.log(data);
-		window.location = "/matches";
-			
-	})
-	
-})
-
-
-// This stuff goes in the html file:
-// 	<!-- Google Maps API js -->
-//	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOZn3F91JHZrrimG2A41q2WAwSNgMs1Cc"
-//   defer></script>
-//	<!-- DO NOT LOSE THIS GOOGLE MAPS API KEY: AIzaSyCOZn3F91JHZrrimG2A41q2WAwSNgMs1Cc -->
-//	
-//	<!-- Custom JavaScript -->
-//	<script src="js/signUp.js"></script>

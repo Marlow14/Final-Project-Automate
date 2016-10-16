@@ -34,9 +34,9 @@ public class UserDAO implements UserDAOInterface {
 	}
 	
 	@Override
-	public boolean addUser(User user) {
-		hibernateTemplate.save(user);
-		return true;
+	public int addUser(User user) {
+		int savedId = (int) hibernateTemplate.save(user);
+		return savedId;
 	}
 
 	@Override
@@ -45,16 +45,16 @@ public class UserDAO implements UserDAOInterface {
 
 		record.setFirstName(user.getFirstName());
 		record.setLastName(user.getLastName());
-		record.setGender(user.getGender());
+//		record.setGender(user.getGender());
 		record.setCellPhone(user.getCellPhone());
 		record.setEmail(user.getEmail());
 		record.setHomeAddress(user.getHomeAddress());
-		record.setWorkAddress(user.getWorkAddress());
+/*		record.setWorkAddress(user.getWorkAddress());*/
 		record.setHomeLat(user.getHomeLat());
 		record.setHomeLng(user.getHomeLng());
-		record.setWorkLat(user.getWorkLat());
-		record.setWorkLng(user.getWorkLng());
-		record.setUserName(user.getUserName());
+/*		record.setWorkLat(user.getWorkLat());
+		record.setWorkLng(user.getWorkLng());*/
+//		record.setUserName(user.getUserName());
 		record.setPassword(user.getPassword());
 
 		hibernateTemplate.update(record);
@@ -73,13 +73,13 @@ public class UserDAO implements UserDAOInterface {
 		return (List<User>) hibernateTemplate.find(hql);
 	}
 	
-	@SuppressWarnings("unchecked")
+/*	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> getWorkMatches(String userWorkLat, String userWorkLng) {
 		
 		String hql = "SELECT userId, ( 3959 * acos( cos( radians(" + userWorkLat + ") ) * cos( radians( workLat ) ) * cos( radians( workLng ) - radians(" + userWorkLng + ") ) + sin( radians(" + userWorkLat + ") ) * sin( radians( workLat ) ) ) ) AS distance FROM User ORDER BY distance";
 		return (List<User>) hibernateTemplate.find(hql);
-	}
+	}*/
 	
 	@SuppressWarnings("unchecked")
 	@Override
