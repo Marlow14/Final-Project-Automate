@@ -1,6 +1,7 @@
 $(document).ready(function(){
 	
 	$("#loginForm").validate({
+		debug:true,
 		onsubmit:false,
 		errorClass:"text-danger",
 		rules:{
