@@ -29,9 +29,9 @@ public class UserService implements UserServiceInterface {
 	}
 
 	@Override
-	public synchronized boolean addUser(User user) {
-		userDAO.addUser(user);
-		return true;
+	public synchronized int addUser(User user) {
+		return userDAO.addUser(user);
+		
 	}
 
 	@Override
@@ -47,8 +47,8 @@ public class UserService implements UserServiceInterface {
 	}
 
 	@Override
-	public List<User> getHomeMatches(String userHomeLat, String userHomeLng) {
-		return userDAO.getHomeMatches(userHomeLat, userHomeLng);
+	public List<User> getHomeMatches(String userHomeLat, String userHomeLng, String userWorkLat, String userWorkLng) {
+		return userDAO.getHomeMatches(userHomeLat, userHomeLng, userWorkLat, userWorkLng);
 		
 	}
 	
@@ -60,7 +60,6 @@ public class UserService implements UserServiceInterface {
 	
 	@Override
 	public List<User> verifyPassword(String userName, String password) {
-		// TODO Auto-generated method stub
 		return userDAO.verifyPassword(userName, password);
 	}
 

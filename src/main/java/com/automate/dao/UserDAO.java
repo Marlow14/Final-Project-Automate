@@ -28,9 +28,9 @@ public class UserDAO implements UserDAOInterface {
 	}
 	
 	@Override
-	public boolean addUser(User user) {
-		hibernateTemplate.save(user);
-		return true;
+	public int addUser(User user) {
+		int savedId = (int) hibernateTemplate.save(user);
+		return savedId;
 	}
 
 	@Override
@@ -39,16 +39,16 @@ public class UserDAO implements UserDAOInterface {
 
 		record.setFirstName(user.getFirstName());
 		record.setLastName(user.getLastName());
-		record.setGender(user.getGender());
+//		record.setGender(user.getGender());
 		record.setCellPhone(user.getCellPhone());
 		record.setEmail(user.getEmail());
 		record.setHomeAddress(user.getHomeAddress());
-/*		record.setWorkAddress(user.getWorkAddress());*/
+		record.setWorkAddress(user.getWorkAddress());
 		record.setHomeLat(user.getHomeLat());
 		record.setHomeLng(user.getHomeLng());
-/*		record.setWorkLat(user.getWorkLat());
-		record.setWorkLng(user.getWorkLng());*/
-		record.setUserName(user.getUserName());
+		record.setWorkLat(user.getWorkLat());
+		record.setWorkLng(user.getWorkLng());
+//		record.setUserName(user.getUserName());
 		record.setPassword(user.getPassword());
 
 		hibernateTemplate.update(record);
@@ -61,9 +61,9 @@ public class UserDAO implements UserDAOInterface {
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<User> getHomeMatches(String userHomeLat, String userHomeLng) {
+	public List<User> getHomeMatches(String userHomeLat, String userHomeLng, String userWorkLat, String userWorkLng) {
 		
-		String hql = "SELECT userId, ( 3959 * acos( cos( radians(" + userHomeLat + ") ) * cos( radians( homeLat ) ) * cos( radians( homeLng ) - radians(" + userHomeLng + ") ) + sin( radians(" + userHomeLat + ") ) * sin( radians( homeLat ) ) ) ) AS distance FROM User ORDER BY distance";
+		String hql = "SELECT U.userName, U.firstName, U.gender, U.cellPhone, ROUND(( 3959 * acos( cos( radians(" + userHomeLat + ") ) * cos( radians( homeLat ) ) * cos( radians( homeLng ) - radians(" + userHomeLng + ") ) + sin( radians(" + userHomeLat + ") ) * sin( radians( homeLat ) ) ) ), 2) AS home_distance, ROUND(( 3959 * acos( cos( radians(" + userWorkLat + ") ) * cos( radians( workLat ) ) * cos( radians( workLng ) - radians(" + userWorkLng + ") ) + sin( radians(" + userWorkLat + ") ) * sin( radians( workLat ) ) ) ), 2) AS work_distance, (ROUND(( 3959 * acos( cos( radians(" + userHomeLat + ") ) * cos( radians( homeLat ) ) * cos( radians( homeLng ) - radians(" + userHomeLng + ") ) + sin( radians(" + userHomeLat + ") ) * sin( radians( homeLat ) ) ) ), 2) + ROUND(( 3959 * acos( cos( radians(" + userWorkLat + ") ) * cos( radians( workLat ) ) * cos( radians( workLng ) - radians(" + userWorkLng + ") ) + sin( radians(" + userWorkLat + ") ) * sin( radians( workLat ) ) ) ), 2)) AS total_distance, U.email FROM User U ORDER BY total_distance";
 		return (List<User>) hibernateTemplate.find(hql);
 	}
 	
@@ -78,7 +78,7 @@ public class UserDAO implements UserDAOInterface {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> verifyPassword(String userName, String password) {
-		String hql = "FROM User where userName = '" +  userName + "' AND password = '" + password + "'";
+		String hql = "FROM User where userName = '" +  userName + "'";
 		return (List<User>) hibernateTemplate.find(hql);
 	}
 	

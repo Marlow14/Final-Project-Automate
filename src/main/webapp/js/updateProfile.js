@@ -1,10 +1,26 @@
-/** JS for sign up form **/
+/** JS for updating user profile data **/
 
-// This function runs when a user uses the sign up form and is run before any data is submitted to the database
+$.put = function(url, data, callback, type){
+ 
+  if ( $.isFunction(data) ){
+    type = type || callback,
+    callback = data,
+    data = {}
+  }
+ 
+  return $.ajax({
+    url: url,
+    type: 'PUT',
+    success: callback,
+    data: data,
+    contentType: type
+  });
+}
 
 $(function(){
 	
-    $('#submitSignUp').click(function(){
+    $('#updateProfile').click(function(){
+    	
     	var geocode1 = $.Deferred();
     	var geocode2 = $.Deferred();
     	
@@ -56,23 +72,11 @@ $(function(){
 		});
 		
 		$.when(geocode1, geocode2).then(function() {
-			$.post("/user", $("#signUpForm").serialize(), function(data){
+			$.put("/user/${session.user.userId}", $("#updateForm").serialize(), function(data){
 				window.location = '/profile';
 			})
 		});
 		
-			
-		
 	});
 	
 })
-
-
-// This stuff goes in the html file:
-// 	<!-- Google Maps API js -->
-//	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOZn3F91JHZrrimG2A41q2WAwSNgMs1Cc"
-//   defer></script>
-//	<!-- DO NOT LOSE THIS GOOGLE MAPS API KEY: AIzaSyCOZn3F91JHZrrimG2A41q2WAwSNgMs1Cc -->
-//	
-//	<!-- Custom JavaScript -->
-//	<script src="js/signUp.js"></script>
