@@ -1,23 +1,27 @@
 $(document).ready(function(){
 	
-	$("#loginForm").validate({
-		debug:true,
-		onsubmit:false,
-		errorClass:"text-danger",
-		rules:{
-			userName:{required:true, minlength:2},
-			password:{required:true, minlength:2}	
-		},
-		messages:{
-			userName:{required:"Please enter a username", minlength:"Must enter a username to continue!"},
-			password:{required:"Please enter a password", minlength:"Must enter a password to continue!"}
-		}
-	})
+	var validateForm = function(){
+		return $("#loginForm").validate({
+			errorClass:"text-danger",
+			rules:{
+				userName:{required:true, minlength:2},
+				password:{required:true, minlength:2}	
+			},
+			messages:{
+				userName:{required:"Please enter a username", minlength:"Must enter a username to continue!"},
+				password:{required:"Please enter a password", minlength:"Must enter a password to continue!"}
+			}
+		})
+	}
 	
-	$('#submitLogin').click(function(){
+	
+	$('#submitLogin').click(function(e){
+		e.preventDefault()
+		var validator = validateForm();
 		
-		
-//		$("#loginForm").validate();
+		if (!$("#loginForm").valid()){
+			return false;
+		}
 		
 		var data = JSON.stringify($('#loginForm').serializeObject());
 		
@@ -43,9 +47,9 @@ $(document).ready(function(){
 	//			window.location = "/";
 	            if (e.status == 500 || e.status == 409){
 //	                alert("Error! User Does Not Exist!");
-	            	
+	            	$( "#dialog" ).dialog( "open" );
 	            }
-	            $( "#dialog" ).dialog( "open" );
+	            
 	        }
 			
 		})
