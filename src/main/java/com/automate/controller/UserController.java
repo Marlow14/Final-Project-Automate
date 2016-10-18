@@ -1,5 +1,6 @@
 package com.automate.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,10 +9,12 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.expression.spel.SpelEvaluationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.ModelAndView.*;
+import org.thymeleaf.exceptions.TemplateProcessingException;
 
 import com.automate.service.UserServiceInterface;
 import com.automate.model.User;
@@ -61,7 +65,11 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/profile")
-	public ModelAndView profile(HttpServletRequest request, HttpServletRequest response, ModelAndView mv) {
+	public ModelAndView profile(HttpServletRequest request, HttpServletRequest response, ModelAndView mv, HttpSession sessionObj) throws IOException {
+	
+		if(sessionObj.getAttribute("user") == null){
+			return new ModelAndView("redirect:/");
+		}
 		mv.setViewName("profile");
 		return mv;
 	}
@@ -79,30 +87,17 @@ public class UserController {
 	 * userService.getAllUsers(); return new ResponseEntity<List<User>>(users,
 	 * HttpStatus.OK); }
 	 */
-
+	@ExceptionHandler(SpelEvaluationException.class)
+	public ModelAndView pageNotFoundHandler(HttpServletRequest request, HttpServletResponse response){
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/index");
+		return mv;
+		
+	}
+	
 	@RequestMapping(value = "/user", method = RequestMethod.POST)
-	public ResponseEntity<Void> userPerson(@ModelAttribute User user, HttpSession sessionObj) {
-
-////		Get all members
-//		List<User> dbUsers = userService.getAllUsers();
-////		Get user submitted username
-//		String isValidUsername = user.getUserName();
-////		boolean used to determine if submitted username ok
-//		boolean usernameOK = true;
-////		Compare DB usernames against submitted username
-//		for (int i = 0; i < dbUsers.size(); i++){
-//			dbUsers.get(i).getUserName();
-//			if(dbUsers.get(i).getUserName().equals(isValidUsername)){
-//				usernameOK = false;
-//			}
-////			Return conflict or create new account
-//			
-//			if(usernameOK = false){
-//				System.out.println("BAD");
-//			}else{
-//			System.out.println("GOOD");
-//			}
-//		}
+	public ResponseEntity<Void> userPerson(@ModelAttribute User user, HttpServletRequest request, HttpServletRequest response, HttpSession sessionObj) throws IOException {
 
 		int savedId = userService.addUser(user);
 		if (savedId == 0) {
