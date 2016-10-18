@@ -83,26 +83,26 @@ public class UserController {
 	@RequestMapping(value = "/user", method = RequestMethod.POST)
 	public ResponseEntity<Void> userPerson(@ModelAttribute User user, HttpSession sessionObj) {
 
-//		Get all members
-		List<User> dbUsers = userService.getAllUsers();
-//		Get user submitted username
-		String isValidUsername = user.getUserName();
-//		boolean used to determine if submitted username ok
-		boolean usernameOK = true;
-//		Compare DB usernames against submitted username
-		for (int i = 0; i < dbUsers.size(); i++){
-			dbUsers.get(i).getUserName();
-			if(dbUsers.get(i).getUserName().equals(isValidUsername)){
-				usernameOK = false;
-			}
-//			Return conflict or create new account
-			
-			if(usernameOK = false){
-				System.out.println("BAD");
-			}else{
-			System.out.println("GOOD");
-			}
-		}
+////		Get all members
+//		List<User> dbUsers = userService.getAllUsers();
+////		Get user submitted username
+//		String isValidUsername = user.getUserName();
+////		boolean used to determine if submitted username ok
+//		boolean usernameOK = true;
+////		Compare DB usernames against submitted username
+//		for (int i = 0; i < dbUsers.size(); i++){
+//			dbUsers.get(i).getUserName();
+//			if(dbUsers.get(i).getUserName().equals(isValidUsername)){
+//				usernameOK = false;
+//			}
+////			Return conflict or create new account
+//			
+//			if(usernameOK = false){
+//				System.out.println("BAD");
+//			}else{
+//			System.out.println("GOOD");
+//			}
+//		}
 
 		int savedId = userService.addUser(user);
 		if (savedId == 0) {

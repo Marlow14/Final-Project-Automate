@@ -4,7 +4,9 @@
 
 $(function(){
 
-	$("#signUpForm").validate({
+	var validateSignUp = function (){
+		return $("#signUpForm").validate({
+	
 		errorClass:"text-danger",
 		rules:{
 			firstName:{required:true, minlength:2},
@@ -28,10 +30,17 @@ $(function(){
 			newPassword:{required:"Must enter a password", minlength:"Password must be at least 6 characters long"},
 			confirmedPassword:{required:"Must confirm password", equalTo:"Does not match password"}
 			}
-	})
+		})
 
+	}
 
-    $('#submitSignUp').click(function(){
+    $('#submitSignUp').click(function(e){
+    	
+    	var signUpValid = validateSignUp();
+    	
+    	if (!$("#signUpForm").valid()){
+			return false;
+		}
 
 		var homeAddress = $("#homeAddress").val();
 		var geocoder;
@@ -48,9 +57,16 @@ $(function(){
 
 				
 				$.post("/user", $("#signUpForm").serialize(), function(data){
-					window.location = '/profile';
+					
+						window.location = '/profile';
+					
 				})
 				
+				.fail(function() {
+					$( "#signupDialog" ).dialog( "open" );
+				})
+			//Specific error handling for existing Username
+			
 			// Specific error handling when requests to geocode fail
 			// No data is submitted to database if coords cannot be obtained
 				
@@ -61,6 +77,15 @@ $(function(){
 			}
 		});
 		
+		$( "#signupDialog" ).dialog({
+	    	autoOpen:false,
+	    	buttons: {
+	            OK: function() {$(this).dialog("close");}
+	         },
+	         hide: "puff",
+	         show : "slide",
+//	         modal: true,
+	    });
 	});
 	
 })

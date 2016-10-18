@@ -169,11 +169,11 @@
                                     <p class="help-block text-danger"></p>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Username *" name="userName" id="newUserName" required data-validation-required-message="Please create a username.">
+                                    <input type="text" class="form-control" placeholder="Username *" name="newUserName" id="newUserName" required data-validation-required-message="Please create a username.">
                                     <p class="help-block text-danger"></p>
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" class="form-control" placeholder="Password *" name="password" id="newPassword" required data-validation-required-message="Please create a password.">
+                                    <input type="password" class="form-control" placeholder="Password *" name="newUserName" id="newPassword" required data-validation-required-message="Please create a password.">
                                     <p class="help-block text-danger"></p>
                                 </div>
                                 <div class="form-group">
@@ -195,6 +195,7 @@
                         </div>
                     </form>
                 </div>
+             <div id="signupDialog" style="display:none;" title="LOG IN ERROR">There was a problem signing up... Username exists already!</div>   
             </div>
         </div>
     </section>
@@ -226,7 +227,7 @@
                     </form>
                     
                 </div>
-            <div id="dialog" style="display:none;" title="LOG IN ERROR">There was a problem logging in... Username or password invalid</div>
+            <div id="loginDialog" style="display:none;" title="LOG IN ERROR">There was a problem logging in... Username or password invalid</div>
             </div>
 		</div>
     </section>

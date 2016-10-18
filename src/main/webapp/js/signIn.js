@@ -1,6 +1,6 @@
 $(document).ready(function(){
 	
-	var validateForm = function(){
+	var validateLogin = function(){
 		return $("#loginForm").validate({
 			errorClass:"text-danger",
 			rules:{
@@ -8,8 +8,8 @@ $(document).ready(function(){
 				password:{required:true, minlength:2}	
 			},
 			messages:{
-				userName:{required:"Please enter a username", minlength:"Must enter a username to continue!"},
-				password:{required:"Please enter a password", minlength:"Must enter a password to continue!"}
+				userName:{required:"Must enter a username", minlength:"Must enter a valid username to continue!"},
+				password:{required:"Must enter a password", minlength:"Must enter a valid password to continue!"}
 			}
 		})
 	}
@@ -17,7 +17,7 @@ $(document).ready(function(){
 	
 	$('#submitLogin').click(function(e){
 		e.preventDefault()
-		var validator = validateForm();
+		var validator = validateLogin();
 		
 		if (!$("#loginForm").valid()){
 			return false;
@@ -47,14 +47,14 @@ $(document).ready(function(){
 	//			window.location = "/";
 	            if (e.status == 500 || e.status == 409){
 //	                alert("Error! User Does Not Exist!");
-	            	$( "#dialog" ).dialog( "open" );
+	            	$( "#loginDialog" ).dialog( "open" );
 	            }
 	            
 	        }
 			
 		})
 			
-		$( "#dialog" ).dialog({
+		$( "#loginDialog" ).dialog({
 	    	autoOpen:false,
 	    	buttons: {
 	            OK: function() {$(this).dialog("close");}
