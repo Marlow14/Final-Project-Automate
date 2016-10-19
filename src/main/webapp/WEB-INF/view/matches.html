@@ -86,7 +86,7 @@
             <div class="box">
                 <div class="col-lg-12">
                     <hr>
-                    <h2 class="intro-text text-center">Ride Matches</h2>
+                    <h2 class="intro-text text-center">Ride Matches for: <span th:text="${session.user.firstName}"></span></h2>
                     <hr>
                     <br/>
                 </div>
@@ -99,16 +99,20 @@
 								<th>First Name</th>
 								<th>Gender</th>
 								<th>Cell Phone</th>
+								<th>Email</th>
+								<th>Home Address</th>
 								<th>Home Distance</th>
+								<th>Work Address</th>
 								<th>Destination Distance</th>
 								<th>Total Distance</th>
-								<th>Email</th>
-								<th>Email</th>
+								<th>User Home Address</th>
+								<th>User Work Address</th>
+								<th>Show Map</th>
                             </tr>
                         </thead>
                         <tbody>
                         	<th:block th:each="match : ${session.matches}">
-                            <tr>
+                            <tr th:if="${session.user.userName != match[0]}">
                                 <td th:text="${match[0]}"></td>
                                 <td th:text="${match[1]}"></td>
                                 <td th:text="${match[2]}"></td>
@@ -117,7 +121,11 @@
                                 <td th:text="${match[5]}"></td>
                                 <td th:text="${match[6]}"></td>
                                 <td th:text="${match[7]}"></td>
-                                <td><button>Email</button></td>
+                                <td th:text="${match[8]}"></td>
+                                <td th:text="${match[9]}"></td>
+                                <td th:text="${session.user.homeAddress}"></td>
+                                <td th:text="${session.user.workAddress}"></td>
+                                <td><button>Show Map</button></td>
                             </tr> 
                             </th:block>
                         </tbody>
@@ -127,7 +135,7 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row" id="contactFormContainer">
             <div class="box">
                 <div class="col-lg-12">
                     <hr>
@@ -161,7 +169,7 @@
                 </div>
             </div>
         </div>
-
+        
     </div>
     <!-- /.container -->
 

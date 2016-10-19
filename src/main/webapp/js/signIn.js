@@ -1,5 +1,4 @@
 
-
 $(function(){
 
 	$('#submitLogin').click(function(){
@@ -29,19 +28,8 @@ $(function(){
 				if (e.status == 500 || e.status == 409){
 					alert("Error! Username or password is invalid");
 				}
-/* 				$("#dialog").dialog("open"); */
 			}
 		});
-		
-//				$( "#dialog" ).dialog({
-//					autoOpen:false,
-//					buttons: {
-//					OK: function() {$(this).dialog("close");}
-//					},
-//					hide: "puff",
-//					show : "slide",
-//					modal: true,
-//				});
 		
 	});
 });

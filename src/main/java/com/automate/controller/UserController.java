@@ -45,20 +45,6 @@ public class UserController {
 		return mv;
 	}
 
-	/*
-	 * @RequestMapping(value="/user/{id}", method = RequestMethod.GET ) public
-	 * ResponseEntity<User> getUserById(@PathVariable("id") Integer id) { User
-	 * user = userService.getUserById(id); return new ResponseEntity<User>(user,
-	 * HttpStatus.OK); }
-	 */
-
-	/*
-	 * @RequestMapping(value= "/user", method = RequestMethod.GET) public
-	 * ResponseEntity<List<User>> getAllUsers() { List<User> users =
-	 * userService.getAllUsers(); return new ResponseEntity<List<User>>(users,
-	 * HttpStatus.OK); }
-	 */
-
 	@RequestMapping(value = "/user", method = RequestMethod.POST)
 	public ResponseEntity<Void> userPerson(@ModelAttribute User user, HttpSession sessionObj) {
 		int savedId = userService.addUser(user);
@@ -88,23 +74,8 @@ public class UserController {
 		User userInfo = (User) sessionObj.getAttribute("user");
 		List<User> userHomeMatches = userService.getHomeMatches(userInfo.getHomeLat(), userInfo.getHomeLng(), userInfo.getWorkLat(), userInfo.getWorkLng());
 		sessionObj.setAttribute("matches", userHomeMatches);
-		return new ResponseEntity<List<User>>(userHomeMatches, HttpStatus.OK); // likely
-																				// can
-																				// return
-																				// void,
-																				// http
-																				// status
+		return new ResponseEntity<List<User>>(userHomeMatches, HttpStatus.OK);
 	}
-
-	/*
-	 * @RequestMapping(value="/userWorkMatch/{userWorkLat:.+}/{userWorkLng:.+}",
-	 * method = RequestMethod.GET ) public ResponseEntity<List<User>>
-	 * getWorkMatches(@PathVariable("userWorkLat") String
-	 * userWorkLat, @PathVariable("userWorkLng") String userWorkLng) {
-	 * List<User> userWorkMatches = userService.getWorkMatches(userWorkLat,
-	 * userWorkLng); return new ResponseEntity<List<User>>(userWorkMatches,
-	 * HttpStatus.OK); }
-	 */
 
 	@RequestMapping(value = "/userlogin", method = RequestMethod.POST)
 	public ResponseEntity<List<User>> userLoginPlus(@Valid @RequestBody User member, HttpSession sessionObj) {
@@ -115,12 +86,7 @@ public class UserController {
 			return new ResponseEntity<List<User>>(HttpStatus.CONFLICT);
 		} else {
 			sessionObj.setAttribute("user", success.get(0));
-			return new ResponseEntity<List<User>>(success, HttpStatus.OK); // likely
-																			// can
-																			// return
-																			// void,
-																			// http
-																			// status
+			return new ResponseEntity<List<User>>(success, HttpStatus.OK);
 		}
 	}
 

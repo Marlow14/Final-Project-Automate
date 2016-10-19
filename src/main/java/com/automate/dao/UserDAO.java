@@ -39,7 +39,6 @@ public class UserDAO implements UserDAOInterface {
 
 		record.setFirstName(user.getFirstName());
 		record.setLastName(user.getLastName());
-//		record.setGender(user.getGender());
 		record.setCellPhone(user.getCellPhone());
 		record.setEmail(user.getEmail());
 		record.setHomeAddress(user.getHomeAddress());
@@ -48,7 +47,6 @@ public class UserDAO implements UserDAOInterface {
 		record.setHomeLng(user.getHomeLng());
 		record.setWorkLat(user.getWorkLat());
 		record.setWorkLng(user.getWorkLng());
-//		record.setUserName(user.getUserName());
 		record.setPassword(user.getPassword());
 
 		hibernateTemplate.update(record);
@@ -63,17 +61,9 @@ public class UserDAO implements UserDAOInterface {
 	@Override
 	public List<User> getHomeMatches(String userHomeLat, String userHomeLng, String userWorkLat, String userWorkLng) {
 		
-		String hql = "SELECT U.userName, U.firstName, U.gender, U.cellPhone, ROUND(( 3959 * acos( cos( radians(" + userHomeLat + ") ) * cos( radians( homeLat ) ) * cos( radians( homeLng ) - radians(" + userHomeLng + ") ) + sin( radians(" + userHomeLat + ") ) * sin( radians( homeLat ) ) ) ), 2) AS home_distance, ROUND(( 3959 * acos( cos( radians(" + userWorkLat + ") ) * cos( radians( workLat ) ) * cos( radians( workLng ) - radians(" + userWorkLng + ") ) + sin( radians(" + userWorkLat + ") ) * sin( radians( workLat ) ) ) ), 2) AS work_distance, (ROUND(( 3959 * acos( cos( radians(" + userHomeLat + ") ) * cos( radians( homeLat ) ) * cos( radians( homeLng ) - radians(" + userHomeLng + ") ) + sin( radians(" + userHomeLat + ") ) * sin( radians( homeLat ) ) ) ), 2) + ROUND(( 3959 * acos( cos( radians(" + userWorkLat + ") ) * cos( radians( workLat ) ) * cos( radians( workLng ) - radians(" + userWorkLng + ") ) + sin( radians(" + userWorkLat + ") ) * sin( radians( workLat ) ) ) ), 2)) AS total_distance, U.email FROM User U ORDER BY total_distance";
+		String hql = "SELECT U.userName, U.firstName, U.gender, U.cellPhone, U.email, U.homeAddress, ROUND(( 3959 * acos( cos( radians(" + userHomeLat + ") ) * cos( radians( homeLat ) ) * cos( radians( homeLng ) - radians(" + userHomeLng + ") ) + sin( radians(" + userHomeLat + ") ) * sin( radians( homeLat ) ) ) ), 2) AS home_distance, U.workAddress, ROUND(( 3959 * acos( cos( radians(" + userWorkLat + ") ) * cos( radians( workLat ) ) * cos( radians( workLng ) - radians(" + userWorkLng + ") ) + sin( radians(" + userWorkLat + ") ) * sin( radians( workLat ) ) ) ), 2) AS work_distance, (ROUND(( 3959 * acos( cos( radians(" + userHomeLat + ") ) * cos( radians( homeLat ) ) * cos( radians( homeLng ) - radians(" + userHomeLng + ") ) + sin( radians(" + userHomeLat + ") ) * sin( radians( homeLat ) ) ) ), 2) + ROUND(( 3959 * acos( cos( radians(" + userWorkLat + ") ) * cos( radians( workLat ) ) * cos( radians( workLng ) - radians(" + userWorkLng + ") ) + sin( radians(" + userWorkLat + ") ) * sin( radians( workLat ) ) ) ), 2)) AS total_distance FROM User U ORDER BY total_distance";
 		return (List<User>) hibernateTemplate.find(hql);
 	}
-	
-/*	@SuppressWarnings("unchecked")
-	@Override
-	public List<User> getWorkMatches(String userWorkLat, String userWorkLng) {
-		
-		String hql = "SELECT userId, ( 3959 * acos( cos( radians(" + userWorkLat + ") ) * cos( radians( workLat ) ) * cos( radians( workLng ) - radians(" + userWorkLng + ") ) + sin( radians(" + userWorkLat + ") ) * sin( radians( workLat ) ) ) ) AS distance FROM User ORDER BY distance";
-		return (List<User>) hibernateTemplate.find(hql);
-	}*/
 	
 	@SuppressWarnings("unchecked")
 	@Override

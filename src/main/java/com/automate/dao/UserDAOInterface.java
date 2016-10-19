@@ -12,6 +12,5 @@ public interface UserDAOInterface {
 	void updateUser(User user);
 	void deleteUser(int userId);
 	public List<User> getHomeMatches(String userHomeLat, String userHomeLng, String userWorkLat, String userWorkLng);
-//	public List<User> getWorkMatches(String userWorkLat, String userWorkLng);
 	public List<User> verifyPassword(String userName, String password);
 }
