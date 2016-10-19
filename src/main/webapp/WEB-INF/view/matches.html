@@ -72,6 +72,9 @@
                         <a href="index.html">About</a>
                     </li>
                     <li>
+                        <a href="/profile">Profile</a>
+                    </li>
+                    <li>
                         <a href="/userlogout">Log Out</a>
                     </li>
                 </ul>
@@ -107,7 +110,7 @@
 								<th>Total Distance</th>
 								<th>User Home Address</th>
 								<th>User Work Address</th>
-								<th>Show Map</th>
+								<th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -125,7 +128,10 @@
                                 <td th:text="${match[9]}"></td>
                                 <td th:text="${session.user.homeAddress}"></td>
                                 <td th:text="${session.user.workAddress}"></td>
-                                <td><button>Show Map</button></td>
+                                <td>
+                                <button class="mapButton">Show Map</button>
+                                <button class="emailButton">Email</button>
+                                </td>
                             </tr> 
                             </th:block>
                         </tbody>
@@ -135,7 +141,7 @@
             </div>
         </div>
 
-        <div class="row" id="contactFormContainer">
+        <div class="row" id="contactForm">
             <div class="box">
                 <div class="col-lg-12">
                     <hr>
@@ -158,7 +164,7 @@
                             <div class="clearfix"></div>
                             <div class="form-group col-lg-12">
                                 <label>Message</label>
-                                <textarea class="form-control" rows="6"></textarea>
+                                <textarea id="message" class="form-control" rows="6"></textarea>
                             </div>
                             <div class="form-group col-lg-12">
                                 <input type="hidden" name="save" value="contact">
@@ -205,6 +211,7 @@
 	
 	<!-- Custom JavaScript -->
 	<script src="js/formatMatchResults.js"></script>
+	<script src="js/contact_me.js"></script>
 	
 </body>
 
