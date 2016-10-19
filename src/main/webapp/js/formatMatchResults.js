@@ -48,10 +48,6 @@ $(function(){
         $("#name").val(data[1]);
         $("#email").val(data[4]);
         $("#cellPhone").val(data[3]);
-        $("#homeAddress").val(data[5]);
-        $("#workAddress").val(data[7]);
-        $("#userHomeAddress").val(data[10]);
-        $("#userWorkAddress").val(data[11]);
         
         $(document).scrollTop( $("#contactForm").offset().top);
         
