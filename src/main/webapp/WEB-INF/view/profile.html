@@ -50,7 +50,7 @@
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
                 </button>
-                <a href="/">
+                <a href="/profile">
                     <img src="img/AMtransparent2.png"> 
                 </a>
             </div>
@@ -62,7 +62,7 @@
                         <a href="#page-top"></a>
                     </li>
                     <li>
-                        <a href="/">Home</a>
+                        <a id="getMatches">Matches</a>
                     </li>
                     <li>
                         <a href="/userlogout">Log Out</a>
@@ -79,7 +79,7 @@
             <div class="box">
                 <div class="col-lg-12">
                     <hr>
-                    <h2 class="intro-text text-center">Contact</h2>
+                    <h2 class="intro-text text-center">Your Profile</h2>
                     <hr>
 
                 </div>
@@ -91,10 +91,7 @@
         <div class="text-center">
         <div id="profilepic">
           <img src="img/RWM5.png" class="avatar img-circle" alt="avatar">
-        </div>
-          <h6>Upload a different photo</h6>
-          
-          <input type="file" class="form-control">
+		</div>
         </div>
       </div>
       
@@ -121,9 +118,15 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-lg-3 control-label">Address:</label>
+            <label class="col-lg-3 control-label">Home Address:</label>
             <div class="col-lg-8">
               <input class="form-control" type="text" name="homeAddress" id="homeAddress" th:value="${session.user.homeAddress}">
+            </div>
+          </div>
+		  <div class="form-group">
+            <label class="col-lg-3 control-label">Work Address:</label>
+            <div class="col-lg-8">
+              <input class="form-control" type="text" name="workAddress" id="workAddress" th:value="${session.user.workAddress}">
             </div>
           </div>
           <div class="form-group">
@@ -158,6 +161,12 @@
             <input type="hidden" value="" name="homeLng" id="homeLng">
 		  </div>
 		  <div class="form-group">
+            <input type="hidden" value="" name="workLat" id="workLat">
+          </div>
+          <div class="form-group">
+            <input type="hidden" value="" name="workLng" id="workLng">
+		  </div>
+		  <div class="form-group">
 			<input type="hidden" th:value="${session.user.userId}" name="userId" id="userId">
 		  </div>
           <div class="form-group">
@@ -165,7 +174,7 @@
             <div class="col-md-8">
               <input type="button" class="btn btn-primary" value="Save Changes" id="updateProfile">
               <span></span>
-              <input type="button" class="btn btn-primary" value="Get Matches" id="getMatches">
+			  <input type="button" class="btn btn-primary" value="Get Matches" id="getMatches2">
             </div>
           </div>
         </form>

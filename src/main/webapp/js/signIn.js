@@ -2,7 +2,28 @@
 
 $(function(){
 
-	$('#submitLogin').click(function(){
+	var validateLogin = function(){
+		return $("#loginForm").validate({
+			errorClass:"text-danger",
+			rules:{
+				userName:{required:true, minlength:2},
+				password:{required:true, minlength:2}	
+			},
+			messages:{
+				userName:{required:"Must enter a username", minlength:"Must enter a valid username to continue!"},
+				password:{required:"Must enter a password", minlength:"Must enter a valid password to continue!"}
+			}
+		})
+	}
+
+	$('#submitLogin').click(function(e){
+	
+		e.preventDefault()
+		var validator = validateLogin();
+		
+		if (!$("#loginForm").valid()){
+			return false;
+		}
 	
 		var data = JSON.stringify($('#loginForm').serializeObject());
 	
@@ -19,7 +40,6 @@ $(function(){
 			data:data,
 			dataType:'json',
 			success:function(json){
-				$("#dialog").dialog().remove();
 				sessionStorage.setItem('user', JSON.stringify(json));
 				var user = sessionStorage.getItem('user')
 				window.location = "/profile";
@@ -27,21 +47,18 @@ $(function(){
 			error: function (e, status) {
 
 				if (e.status == 500 || e.status == 409){
-					alert("Error! Username or password is invalid");
+ 					$("#loginDialog").dialog("open");
 				}
-/* 				$("#dialog").dialog("open"); */
 			}
 		});
 		
-//				$( "#dialog" ).dialog({
-//					autoOpen:false,
-//					buttons: {
-//					OK: function() {$(this).dialog("close");}
-//					},
-//					hide: "puff",
-//					show : "slide",
-//					modal: true,
-//				});
-		
+		$("#loginDialog").dialog({
+			autoOpen:false,
+			buttons: {
+				OK: function() {$(this).dialog("close");}
+			},
+			hide: "puff",
+			show : "slide"
+		});
 	});
 });

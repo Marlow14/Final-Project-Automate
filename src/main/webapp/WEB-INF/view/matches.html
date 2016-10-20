@@ -54,7 +54,7 @@
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
                 </button>
-                <a href="index.html">
+                <a href="/matches">
                     <img src="img/AMtransparent2.png"> 
                 </a>
             </div>
@@ -66,13 +66,10 @@
                         <a href="#page-top"></a>
                     </li>
                     <li>
-                        <a href="index.html">About</a>
+                        <a href="/profile">Profile</a>
                     </li>
                     <li>
-                        <a href="signUp.html">Sign Up</a>
-                    </li>
-                    <li>
-                        <a href="logIn.html">Log In</a>
+                        <a href="/userlogout">Log Out</a>
                     </li>
                 </ul>
             </div>
@@ -86,20 +83,26 @@
             <div class="box">
                 <div class="col-lg-12">
                     <hr>
-                    <h2 class="intro-text text-center">Your Profile</h2>
+                    <h2 class="intro-text text-center">Ride Matches for: <span th:text="${session.user.firstName}"></span></h2>
                     <hr>
                     <br/>
                 </div>
-                <div>
+                <div id="tableContainer">
                     <table id="matchResult" class="table table-bordered table-hover table-striped" style="background-color: lightblue">
-                        <h4 style="text-align: center">Matches</h4>
+                        <h4 style="text-align: center">Results</h4>
                         <thead>
                             <tr>
+								<th>Username</th>
 								<th>First Name</th>
-								<th>Last Name</th>
-								<th>Email</th>
-								<th>Location</th>
-								<th>Destination</th>
+								<th>Gender</th>
+								<th>Home Address</th>
+								<th>Home Distance</th>
+								<th>Work Address</th>
+								<th>Work Distance</th>
+								<th>Total Distance</th>
+								<th>User Home Address</th>
+								<th>User Work Address</th>
+								<th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -108,25 +111,26 @@
                                 <td th:text="${match[0]}"></td>
                                 <td th:text="${match[1]}"></td>
                                 <td th:text="${match[2]}"></td>
-                                <td th:text="${match[3]}"></td>
-                                <td></td>
-                            </tr> 
+								<td th:text="${match[3]}"></td>
+                                <td th:text="${match[4]}"></td>
+								<td th:text="${match[5]}"></td>
+                                <td th:text="${match[6]}"></td>
+                                <td th:text="${match[7]}"></td>
+								<td th:text="${session.user.homeAddress}"></td>
+								<td th:text="${session.user.workAddress}"></td>
+                                <td>
+								  <button id="sendEmail" class="btn btn-primary emailButton" th:attr="data-id=${match[8]}"> Email </button>
+								  <button id="createMap" class="btn btn-primary mapButton" > Map </button>
+								</td>
+							</tr> 
                             </th:block>
-                           <!--   <tr>
-                                <td>Jane</td>
-                                <td>Doe</td>
-                                <td>doedoedoe@gmail.com</td>
-                                <td>Westminster, MD</td>
-                                <td>T.Rowe Price, Owings Mills, MD</td>
-                            </tr> -->
                         </tbody>
                     </table>
                 </div>
                 <div class="clearfix"></div>
             </div>
         </div>
-
-        <div class="row">
+        <!-- <div class="row">
             <div class="box">
                 <div class="col-lg-12">
                     <hr>
@@ -159,22 +163,10 @@
                     </form>
                 </div>
             </div>
-        </div>
+        </div> -->
 
     </div>
     <!-- /.container -->
-
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <a href="index.html">
-                    <img src="img/AdamnAM1.png">
-                    </a>
-                </div>
-            </div>
-        </div>
-    </footer>
 
 	<script src="vendor/jquery/jquery.min.js"></script>
 
@@ -194,8 +186,11 @@
     <!-- Theme JavaScript -->
     <script src="js/agency.min.js"></script>
 	
+	<script src="js/serializeObject.js"></script>
+	
 	<!-- Custom JavaScript -->
 	<script src="js/formatMatchResults.js"></script>
+	<script src="js/email.js"></script>
 	
 </body>
 

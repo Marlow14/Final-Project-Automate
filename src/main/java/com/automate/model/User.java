@@ -8,8 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Generated;
-
 @Entity
 @Table(name = "users")
 public class User implements Serializable {
@@ -36,8 +34,8 @@ public class User implements Serializable {
 	@Column(name = "home_address")
 	private String homeAddress;
 
-/*	@Column(name = "work_address")
-	private String workAddress;*/
+	@Column(name = "work_address")
+	private String workAddress;
 	
 	@Column(name = "home_lat")
 	private String homeLat;
@@ -45,11 +43,11 @@ public class User implements Serializable {
 	@Column(name = "home_lng")
 	private String homeLng;
 
-/*	@Column(name = "work_lat")
+	@Column(name = "work_lat")
 	private String workLat;
 	
 	@Column(name = "work_lng")
-	private String workLng;*/
+	private String workLng;
 
 	@Column(name = "user_name")
 	private String userName;
@@ -132,7 +130,7 @@ public class User implements Serializable {
 		this.homeLng = homeLng;
 	}
 
-/*	public String getWorkAddress() {
+	public String getWorkAddress() {
 		return workAddress;
 	}
 
@@ -154,7 +152,7 @@ public class User implements Serializable {
 
 	public void setWorkLng(String workLng) {
 		this.workLng = workLng;
-	}*/
+	}
 
 	public String getUserName() {
 		return userName;
@@ -172,5 +170,14 @@ public class User implements Serializable {
 		this.password = password;
 	}
 
+	@Override
+	public String toString() {
+		return "User [userId=" + userId + ", firstName=" + firstName + ", lastName=" + lastName + ", gender=" + gender
+				+ ", cellPhone=" + cellPhone + ", homeAddress=" + homeAddress + ", workAddress=" + workAddress
+				+ ", homeLat=" + homeLat + ", homeLng=" + homeLng + ", workLat=" + workLat + ", workLng=" + workLng
+				+ ", userName=" + userName + ", password=" + password + ", email=" + email + "]";
+	}
+
+	
 	
 }

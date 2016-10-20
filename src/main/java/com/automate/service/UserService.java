@@ -47,16 +47,11 @@ public class UserService implements UserServiceInterface {
 	}
 
 	@Override
-	public List<User> getHomeMatches(String userHomeLat, String userHomeLng) {
-		return userDAO.getHomeMatches(userHomeLat, userHomeLng);
+	public List<User> getMatches(String userHomeLat, String userHomeLng, String userWorkLat, String userWorkLng) {
+		return userDAO.getMatches(userHomeLat, userHomeLng, userWorkLat, userWorkLng);
 		
 	}
 	
-/*	@Override
-	public List<User> getWorkMatches(String userWorkLat, String userWorkLng) {
-		return userDAO.getWorkMatches(userWorkLat, userWorkLng);
-		
-	}*/
 	
 	@Override
 	public List<User> verifyPassword(String userName, String password) {

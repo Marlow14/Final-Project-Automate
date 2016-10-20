@@ -1,14 +1,37 @@
 
 
 $(function(){
-    var table = $("#matchResult").DataTable({colReorder: true, select: true})
+    var table = $("#matchResult").DataTable({
+		colReorder: true, 
+		select: true,
+		"order": [[9, "asc"]],
+		"columnDefs": [
+			{
+    	        "targets": [3],
+    	        "visible": false
+    	    },
+    	    {
+    	        "targets": [5],
+    	        "visible": false
+    	    },
+			{
+    	        "targets": [8],
+    	        "visible": false
+    	    },
+			{
+    	        "targets": [9],
+    	        "visible": false
+    	    }
+    	] 
+	})
      
-    $('#matchResult tbody').on( 'click', 'tr', function () {
-        
-        var data = table.row( this ).data();
-        $("#name").val(data[0] + " " + data[1]);
-        $("#email").val(data[2]);
-        $("#cellPhone").val(data[3])
-    } );
+    $('#matchResult tbody').on('click', '.mapButton', function(){
+         
+        var data = table.row( $(this).closest("tr") ).data();
+         
+        setTimeout(function(){
+         	window.open("https://www.google.com/maps/dir/" + data[3] +"/" + data[8] + "/" + data[9] + "/"+ data[5] +"/", "mapWindow", "width=1200,height=900");
+        }, 500);
+    });
 
 })
