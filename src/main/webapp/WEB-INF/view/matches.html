@@ -107,7 +107,7 @@
                         </thead>
                         <tbody>
                         	<th:block th:each="match : ${session.matches}">
-                            <tr>
+                            <tr th:if="${session.user.userName} != ${match[0]}")>
                                 <td th:text="${match[0]}"></td>
                                 <td th:text="${match[1]}"></td>
                                 <td th:text="${match[2]}"></td>
